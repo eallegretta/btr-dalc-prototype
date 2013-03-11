@@ -51,8 +51,10 @@ In order to build the application you need to first specify the framework to acc
 As part of the project is also bundled the EFProf and NHProf, both tools need a trial license that you can get from http://www.hibernatingrhinos.com/
 
 The path to run the NHProf is 
+
     packages\NHibernateProfiler.2.0.2143.0\tools\EFProf.exe
 The path to run the EFProf is 
+
     packages\EntityFrameworkProfiler.2.0.2143.0\tools\EFProf.exe
 
 
