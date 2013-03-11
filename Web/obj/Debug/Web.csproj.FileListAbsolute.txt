@@ -46,3 +46,4 @@ d:\Code\BtrDataAccessPropos\Web\bin\MvcContrib.dll
 d:\Code\BtrDataAccessPropos\Web\bin\MvcContrib.xml
 d:\Code\BtrDataAccessPropos\Web\bin\WebActivator.dll
 d:\Code\BtrDataAccessPropos\Web\bin\HibernatingRhinos.Profiler.Appender.dll
+d:\Code\BtrDataAccessPropos\Web\obj\Debug\Web.csprojResolveAssemblyReference.cache

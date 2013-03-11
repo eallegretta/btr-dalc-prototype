@@ -13,6 +13,7 @@ namespace Web.Backend.Contracts
         T Get(IQuery<T> query);
         int Count(IQuery<T> query = null);
         List<T> GetAll(int skip = 0, int take = 1000);
+        List<T> NativeQuery(string query, params object[] inputParameters);
         IQueryable<T> Query();
         T SaveOrUpdate(T instance);
         void Delete(object id);

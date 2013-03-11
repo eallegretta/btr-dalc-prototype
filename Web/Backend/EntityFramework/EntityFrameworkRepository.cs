@@ -61,7 +61,7 @@ namespace Web.Backend.EntityFramework
 
         public T Get(object id)
         {
-            return Get(GetPrimaryKey().Name, id);
+            return DbContext.Set<T>().Find(id);
         }
 
         public T Get(string field, object value)
@@ -125,6 +125,14 @@ namespace Web.Backend.EntityFramework
         public void DeleteAll()
         {
             throw new NotSupportedException();
+        }
+
+
+        public List<T> NativeQuery(string query, params object[] inputParameters)
+        {
+            var dbQuery = DbContext.Set<T>().SqlQuery(query, inputParameters);
+
+            return dbQuery.ToList();
         }
     }
 }

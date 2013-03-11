@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
@@ -73,8 +75,32 @@ namespace Web.Backend.Nhibernate
 
         public void DeleteAll()
         {
-            Session.Delete("from " + typeof (T).Name + " e");
+            Session.Delete("from " + typeof(T).Name + " e");
             Session.Flush();
+        }
+
+
+        public List<T> NativeQuery(string query, params object[] inputParameters)
+        {
+            IQuery queryObj;
+
+            try
+            {
+                queryObj = Session.GetNamedQuery(query);
+            }
+            catch (MappingException)
+            {
+            }
+
+            queryObj = Session.CreateSQLQuery(query);
+
+            for (int index = 0; index < inputParameters.Length; index++)
+            {
+                object parameter = inputParameters[index];
+                queryObj.SetParameter(index, parameter);
+            }
+
+            return queryObj.List<T>().ToList();
         }
     }
 }
