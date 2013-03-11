@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Cinchcast.Framework</id>
+    <version>1.1.0.13316</version>
+    <title>Cinchcast.Framework</title>
+    <authors>Cinchcast Inc.</authors>
+    <owners>Cinchcast Inc.</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cinchcast Framework Core Library</description>
+    <dependencies>
+      <dependency id="CommonServiceLocator" version="1.0" />
+      <dependency id="Newtonsoft.Json" version="4.5.8" />
+      <dependency id="protobuf-net" version="2.0.0.621" />
+      <dependency id="Seterlund.CodeGuard" version="2.2.1" />
+    </dependencies>
+    <references>
+      <reference file="Cinchcast.Framework.dll" />
+    </references>
+  </metadata>
+</package>

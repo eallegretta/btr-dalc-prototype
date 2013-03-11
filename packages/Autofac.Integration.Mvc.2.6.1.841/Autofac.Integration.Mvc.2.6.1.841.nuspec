@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Autofac.Integration.Mvc</id>
+    <version>2.6.1.841</version>
+    <title>Autofac.Integration.Mvc</title>
+    <authors>Autofac Project - http://autofac.org</authors>
+    <owners>Autofac Project - http://autofac.org</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Autofac ASP.NET MVC 3 Integration</description>
+    <dependencies>
+      <dependency id="Autofac" version="2.6.3.862" />
+      <dependency id="Microsoft.AspNet.Mvc" version="4.0.20710.0" />
+    </dependencies>
+    <references>
+      <reference file="Autofac.Integration.Mvc.dll" />
+    </references>
+  </metadata>
+</package>
