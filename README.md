@@ -7,38 +7,99 @@ The class responsible for performing the data access queries is the IRepository<
     public interface IRepository<T> where T: class, new()
     {
         T Get(object id);
-        T Get(string field, object value);
-        T Get(Expression<Func<T, object>> property, object value);
-        T Get(IQuery<T> query);
-        int Count(IQuery<T> query = null);
-        List<T> GetAll(int skip = 0, int take = 1000);
-        List<T> NativeQuery(string query, params object[] inputParameters);
-        IQueryable<T> Query();
+        T Get(IQuery query);
+        int Count(IQuery query = null);
+        List<T> All(int skip = 0, int take = 1000);
+        List<T> Query(IQuery query);
         T SaveOrUpdate(T instance);
         void Delete(object id);
         void DeleteAll();
     }
 
-Queries should be performed by using que Query method in convination with the extension method Where that supports the IQuery<T> interface, this interface should be implemented by any class that will need to send filtering information to a service method.
+Queries are performed using the Query Object pattern, each query must inherit one of the base query classes that implement the IQuery interface
 
-The IQuery<T> interface is defined as follows
+The IQuery interface is defined as follows
 
     public interface IQuery<T>
     {
-        Expression<Func<T, bool>> MatchingCriteria { get; }
+    }
+
+The following query types are defined within the system
+
+Linq Query
+
+    public abstract class LinqQuery<T> : IQuery
+    {
+        public abstract void Apply(IQueryable<T> queryable);
+    }
+    
+Linq Paged Query
+
+    public class LinqPagedQuery<T>: LinqQuery<T> where T: class, new()
+    {
+        private readonly int _skip;
+        private readonly int _take;
+
+        public LinqPagedQuery(int skip = 0, int take = 1000)
+        {
+            _skip = skip;
+            _take = take;
+        }
+
+        public override void Apply(IQueryable<T> queryable)
+        {
+            if (_skip > 0)
+            {
+                queryable = queryable.Skip(_skip);
+            }
+
+            queryable = queryable.Take(_take);
+        }
+    }
+
+Stored Procedure Query
+
+    public abstract class StoredProcedureQuery : IQuery
+    {
+        public abstract string StoredProcedure { get; }
+        public abstract IDictionary<string, object> Parameters { get; }
     }
 
 The following is a simple expample of a query that is used to get all the category topics filtered by a specific category
 
-    public class CategoryTopicsByCategory : IQuery<CategoryTopicEntity>
+    public class CategoryTopicsByCategory : LinqPagedQuery<CategoryTopicEntity>
     {
-        public CategoryTopicsByCategory(string categoryUrl)
+        private readonly string _categoryUrl;
+
+        public CategoryTopicsByCategory(string categoryUrl, int skip = 0, int take = 1000): base(skip, take)
         {
-            MatchingCriteria = x => x.Category.GenreUrl == categoryUrl;
+            _categoryUrl = categoryUrl;
         }
 
-        public Expression<Func<CategoryTopicEntity, bool>> MatchingCriteria { get; private set; }
+        public override void Apply(IQueryable<CategoryTopicEntity> queryable)
+        {
+            queryable = queryable.Where(x => x.Category.GenreUrl == _categoryUrl);
+
+            base.Apply(queryable);
+        }
     }
+    
+    
+Another important interface is the one that can interpret each of the different queries
+
+    public interface IQueryInterpreter<T> where T: class, new()
+    {
+        bool CanInterpret(IQuery query);
+        int Count(IQuery query = null);
+        T Get(IQuery query);
+        List<T> Query(IQuery query);
+    }
+    
+Then its responsability of the underlying framework to create interpreter for each of the defined base query types in the system
+
+
+A repository will use the query intepreter in order to execute the queries that it receives.
+
 
 ### Building the application
 
