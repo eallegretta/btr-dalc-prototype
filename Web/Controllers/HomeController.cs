@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using Cinchcast.Framework.Collections;
-using Web.Backend.Contracts.Services;
 using MvcContrib.Pagination;
+using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;
-using Web.Backend.DomainModel.Queries;
+using Web.Backend.DomainModel.Contracts.Services;
+using Web.Backend.DomainModel.Entities;
 
 namespace Web.Controllers
 {
@@ -25,10 +26,12 @@ namespace Web.Controllers
             PagedList<CategoryTopicEntity> topics;
 
             if (!string.IsNullOrWhiteSpace(category))
-                topics = _categoryTopicService.GetAll(new CategoryTopicsByCategory(category), skip, take);
+            {
+                topics = _categoryTopicService.GetAllByCategory(category, skip, take);
+            }
             else
             {
-                topics = _categoryTopicService.GetAll(null, skip, take);
+                topics = _categoryTopicService.GetAll(skip, take);
             }
 
             var customPagination = new CustomPagination<CategoryTopicEntity>(topics, page, take, topics.TotalItems);

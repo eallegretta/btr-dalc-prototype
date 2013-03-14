@@ -1,8 +1,10 @@
 ﻿using Cinchcast.Framework.Collections;
-using Web.Backend.Contracts;
-using Web.Backend.Contracts.Services;
+using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;
 using System.Linq;
+using Web.Backend.DomainModel.Contracts;
+using Web.Backend.DomainModel.Contracts.Services;
+using Web.Backend.DomainModel.Entities;
 
 namespace Web.Backend.Services
 {
@@ -20,14 +22,20 @@ namespace Web.Backend.Services
             return _categoryTopicRepo.Get(id);
         }
 
-        public PagedList<CategoryTopicEntity> GetAll(IQuery<CategoryTopicEntity> query, int skip, int take)
+        public PagedList<CategoryTopicEntity> GetAll(int skip, int take)
         {
+            int count = _categoryTopicRepo.Count();
+
+            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.All(skip, take));
+        }
+
+        public PagedList<CategoryTopicEntity> GetAllByCategory(string category, int skip, int take)
+        {
+            var query = new CategoryTopicsByCategory(category, skip, take);
+
             int count = _categoryTopicRepo.Count(query);
 
-
-            var queryResult = _categoryTopicRepo.Query().EagerLoad(x => x.Category).Where(query).OrderBy(x => x.Name).Skip(skip).Take(take).ToList();
-
-            return new PagedList<CategoryTopicEntity>(count, queryResult);
+            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.Query(query));
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Microsoft.Practices.ServiceLocation;
-using Web.Backend.Contracts;
+using Web.Backend.DomainModel.Contracts;
 
 namespace Web.Backend
 {

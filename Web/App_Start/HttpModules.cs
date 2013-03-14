@@ -2,8 +2,6 @@
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Web.App_Start;
 using Web.Backend;
-using Web.Backend.EntityFramework;
-using Web.Backend.Nhibernate;
 using WebActivator;
 
 [assembly: PreApplicationStartMethod(typeof(HttpModules), "Start")]

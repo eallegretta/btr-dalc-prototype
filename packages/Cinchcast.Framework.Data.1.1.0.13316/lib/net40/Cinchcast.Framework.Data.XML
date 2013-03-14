@@ -1,0 +1,485 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cinchcast.Framework.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Cinchcast.Framework.Data.Commands.ExecuteReaderCommand`1">
+            <summary>
+            Performs an ExecuteScalar against the database
+            </summary>
+            <typeparam name="T">The type to convert each record</typeparam>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.QueryDatabaseCommand`1">
+            <summary>
+            A base command definition for executing a sql query against the database
+            </summary>
+            <typeparam name="T">The type of the result</typeparam>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.DatabaseCommand`1">
+            <summary>
+            Provides a base class for all database related commands
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.IDatabaseCommand">
+            <summary>
+            Defines the contract for a database command
+            </summary>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.IDatabaseCommand.Connection">
+            <summary>
+            Gets or sets the connection.
+            </summary>
+            <value>
+            The connection.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.IDatabaseCommand.CurrentTransaction">
+            <summary>
+            Gets or sets the current transaction.
+            </summary>
+            <value>
+            The current transaction.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommand`1.Connection">
+            <summary>
+            Gets or sets the connection.
+            </summary>
+            <value>
+            The connection.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommand`1.CurrentTransaction">
+            <summary>
+            Gets or sets the current transaction.
+            </summary>
+            <value>
+            The current transaction.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.QueryDatabaseCommand`1.CommandText">
+            <summary>
+            Gets the command text.
+            </summary>
+            <value>
+            The command text.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.QueryDatabaseCommand`1.CommandType">
+            <summary>
+            Gets the type of the command.
+            </summary>
+            <value>
+            The type of the command.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.QueryDatabaseCommand`1.CommandTimeout">
+            <summary>
+            Gets the command timeout.
+            </summary>
+            <value>
+            The command timeout.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.QueryDatabaseCommand`1.CommandParameters">
+            <summary>
+            Gets the command parameters.
+            </summary>
+            <value>
+            The command parameters.
+            </value>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.ExecuteReaderCommand`1.Execute">
+            <summary>
+            Executes the command.
+            </summary>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.ExecuteReaderCommand`1.Convert">
+            <summary>
+            Gets the convert function.
+            </summary>
+            <value>
+            The convert function.
+            </value>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.ExecuteScalarCommand">
+            <summary>
+            Performs an ExecuteScalar against the database
+            </summary>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.ExecuteScalarCommand.Execute">
+            <summary>
+            Executes the command.
+            </summary>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.DatabaseCommand">
+            <summary>
+            Provides a base class for all database related commands
+            </summary>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommand.Connection">
+            <summary>
+            Gets or sets the connection.
+            </summary>
+            <value>
+            The connection.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommand.CurrentTransaction">
+            <summary>
+            Gets or sets the current transaction.
+            </summary>
+            <value>
+            The current transaction.
+            </value>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor">
+            <summary>
+            A comman processor that performs a database connection
+            </summary>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.#ctor(System.Func{System.Data.Common.DbConnection})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor"/> class.
+            </summary>
+            <param name="connectionFactory">The connection factory.</param>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.Process(Cinchcast.Framework.Commands.Command)">
+            <summary>
+            Processes the specified command.
+            </summary>
+            <param name="command">The command.</param>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.BatchProcess(System.Collections.Generic.IEnumerable{Cinchcast.Framework.Commands.Command},System.Boolean)">
+            <summary>
+            Processes the specified command batch
+            </summary>
+            <param name="commands">The commands.</param>
+            <param name="stopOnInvalidCommand">Stops processing after a command is found to be invalid</param>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.BatchProcess``1(System.Collections.Generic.IEnumerable{Cinchcast.Framework.Commands.Command{``0}},System.Boolean)">
+            <summary>
+            Batches the process.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+            <param name="commands">The commands.</param>
+            <param name="stopOnInvalidCommand">if set to <c>true</c> [stop on invalid command].</param>
+            <returns>
+            An enumeration of TResult
+            </returns>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.UseTransactions">
+            <summary>
+            Gets or sets a value indicating whether to use transactions.
+            </summary>
+            <value>
+              <c>true</c> if [use transactions]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="P:Cinchcast.Framework.Data.Commands.DatabaseCommandProcessor.RollbackBatchOnInvalidCommand">
+            <summary>
+            Gets or sets a value indicating whether [rollback on invalid command].
+            </summary>
+            <value>
+            <c>true</c> if [rollback on invalid command]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.Commands.ExecuteNonQueryCommand">
+            <summary>
+            Performs an ExecuteNonQuery against the database
+            </summary>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.Commands.ExecuteNonQueryCommand.Execute">
+            <summary>
+            Executes the command.
+            </summary>
+        </member>
+        <member name="T:System.Data.CommandExtensions">
+            <summary>
+            Extension methods for the IDbCommand interface
+            </summary>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddParameter(System.Data.IDbCommand,System.String,System.Object,System.Data.ParameterDirection)">
+            <summary>
+            Adds a parameter to the command if the parametere name does not start with @ the method adds it internally
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="value">The parameter value.</param>
+            <param name="direction">The parameter direction.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddParameter(System.Data.IDbCommand,System.String,System.Object,System.Data.DbType,System.Data.ParameterDirection)">
+            <summary>
+            Adds a parameter to the command if the parametere name does not start with @ the method adds it internally
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="value">The parameter value.</param>
+            <param name="dbType">The parameter type.</param>
+            <param name="direction">The parameter direction.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddParameter(System.Data.IDbCommand,System.String,System.Object,System.Int32,System.Data.ParameterDirection)">
+            <summary>
+            Adds a parameter to the command if the parametere name does not start with @ the method adds it internally
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="value">The parameter value.</param>
+            <param name="size">The parameter size.</param>
+            <param name="direction">The parameter direction.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddParameter(System.Data.IDbCommand,System.String,System.Object,System.Data.DbType,System.Int32,System.Data.ParameterDirection)">
+            <summary>
+            Adds a parameter to the command if the parametere name does not start with @ the method adds it internally
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="value">The parameter value.</param>
+            <param name="dbType">The parameter type.</param>
+            <param name="size">The parameter size.</param>
+            <param name="direction">The parameter direction.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddInOutParameter(System.Data.IDbCommand,System.String,System.Object,System.Nullable{System.Data.DbType},System.Nullable{System.Int32})">
+            <summary>
+            Adds an input / output parameter.
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="value">The parameter value.</param>
+            <param name="dbType">The parameter type.</param>
+            <param name="size">The parameter size.</param>
+            <returns>
+            Returns the added parameter
+            </returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddOutParameter(System.Data.IDbCommand,System.String,System.Nullable{System.Data.DbType},System.Nullable{System.Int32})">
+            <summary>
+            Adds an output parameter.
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="dbType">The parameter type.</param>
+            <param name="size">The parameter size.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.AddReturnParameter(System.Data.IDbCommand,System.String,System.Nullable{System.Data.DbType},System.Nullable{System.Int32})">
+            <summary>
+            Adds a return parameter.
+            </summary>
+            <param name="cmd">The DbCommand that will be extended.</param>
+            <param name="name">The parameter name.</param>
+            <param name="dbType">The parameter type.</param>
+            <param name="size">The parameter size.</param>
+            <returns>Returns the added parameter</returns>
+        </member>
+        <member name="M:System.Data.CommandExtensions.ExecuteReader``1(System.Data.IDbCommand,System.Func{System.Data.IDataRecord,``0},System.Data.CommandBehavior)">
+            <summary>
+            Executes a data reader and applies the convert function on each record so it return an IList of T.
+            </summary>
+            <typeparam name="T">The type of the record to return</typeparam>
+            <param name="cmd">The command to extend.</param>
+            <param name="convert">The convert function for each record.</param>
+            <param name="cmdBehavior">The command behavior.</param>
+            <returns>An IList of T.</returns>
+        </member>
+        <member name="T:System.Data.ConnectionExtensions">
+            <summary>
+            Extension methods for the IDbConnection interface
+            </summary>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.CreateCommand(System.Data.IDbConnection,System.String)">
+            <summary>
+            Creates a stored procedure command.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <returns>
+            A database command
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.CreateCommand(System.Data.IDbConnection,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Creates a stored procedure command.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            A database command
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.CreateCommand(System.Data.IDbConnection,System.String,System.Data.CommandType,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Creates a command.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="commandText">The command text.</param>
+            <param name="commandType">The command type.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            A database command
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteReader(System.Data.IDbConnection,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database command and returns a data reader.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The data reader
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteReader(System.Data.IDbConnection,System.String,System.Data.CommandType,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database command and returns a data reader.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="commandText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The data reader
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteReader``1(System.Data.IDbConnection,System.Func{System.Data.IDataRecord,``0},System.String,System.Object,System.Nullable{System.Int32},System.Data.CommandBehavior)">
+            <summary>
+            Executes a data reader and applies the convert function on each record so it return an IList of T.
+            </summary>
+            <typeparam name="T">The type of the record to return</typeparam>
+            <param name="connection">The connection.</param>
+            <param name="convert">The convert function for each record.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <param name="commandBehavior">The command behavior.</param>
+            <returns>
+            An IList of T.
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteReader``1(System.Data.IDbConnection,System.Func{System.Data.IDataRecord,``0},System.String,System.Data.CommandType,System.Object,System.Nullable{System.Int32},System.Data.CommandBehavior)">
+            <summary>
+            Executes a data reader and applies the convert function on each record so it return an IList of T.
+            </summary>
+            <typeparam name="T">The type of the record to return</typeparam>
+            <param name="connection">The connection.</param>
+            <param name="convert">The convert function for each record.</param>
+            <param name="commandText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <param name="commandBehavior">The command behavior.</param>
+            <returns>
+            An IList of T.
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteScalar(System.Data.IDbConnection,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database command and returns the value of the first column of the first row.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The value
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteScalar(System.Data.IDbConnection,System.String,System.Data.CommandType,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database command and returns the value of the first column of the first row.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="commandText">The command text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The value
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteNonQuery(System.Data.IDbConnection,System.String,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database query and returns the number of affected rows.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="storedProcedureName">Name of the stored procedure.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The number of affected rows
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.ExecuteNonQuery(System.Data.IDbConnection,System.String,System.Data.CommandType,System.Object,System.Nullable{System.Int32})">
+            <summary>
+            Executes a database query and returns the number of affected rows.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="commandText">The commmand text.</param>
+            <param name="commandType">Type of the command.</param>
+            <param name="commandParameters">The command parameters.</param>
+            <param name="commandTimeout">The command timeout.</param>
+            <returns>
+            The number of affected rows
+            </returns>
+        </member>
+        <member name="M:System.Data.ConnectionExtensions.CreateDataAdapter(System.Data.IDbConnection,System.Data.IDbCommand,System.Data.IDbCommand,System.Data.IDbCommand,System.Data.IDbCommand)">
+            <summary>
+            Creates the data adapter.
+            </summary>
+            <param name="connection">The connection.</param>
+            <param name="selectCommand">The select command.</param>
+            <param name="insertCommand">The insert command.</param>
+            <param name="updateCommand">The update command.</param>
+            <param name="deleteCommand">The delete command.</param>
+            <returns>
+            A new instance of the IDataAdapter
+            </returns>
+        </member>
+        <member name="T:System.Data.DataReaderExtensions">
+            <summary>
+            Extension methods for the IDataReader interface
+            </summary>
+        </member>
+        <member name="M:System.Data.DataReaderExtensions.Field``1(System.Data.IDataReader,System.Int32)">
+            <summary>
+            Gets the specified field from the data reader and converts it to the destination value
+            </summary>
+            <typeparam name="T">The type to convert to</typeparam>
+            <param name="reader">The reader.</param>
+            <param name="index">The index.</param>
+            <returns>The casted value</returns>
+        </member>
+        <member name="M:System.Data.DataReaderExtensions.Field``1(System.Data.IDataReader,System.String)">
+            <summary>
+            Gets the specified field from the data reader and converts it to the destination value
+            </summary>
+            <typeparam name="T">The type to convert to</typeparam>
+            <param name="reader">The reader.</param>
+            <param name="name">The field name.</param>
+            <returns>The casted value</returns>
+        </member>
+        <member name="T:Cinchcast.Framework.Data.IDataAdapterFactory">
+            <summary>
+            Defines the contract for classes that will create instances of the <see cref="T:System.Data.IDataAdapter"/> interface.
+            </summary>
+        </member>
+        <member name="M:Cinchcast.Framework.Data.IDataAdapterFactory.CreateDataAdapter">
+            <summary>
+            Creates a new instance of the data adapter.
+            </summary>
+            <returns>A new instance of <see cref="T:System.Data.IDataAdapter"/></returns>
+        </member>
+    </members>
+</doc>

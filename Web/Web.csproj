@@ -50,6 +50,9 @@
     <Reference Include="Cinchcast.Framework">
       <HintPath>..\packages\Cinchcast.Framework.1.1.0.13316\lib\net40\Cinchcast.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Cinchcast.Framework.Data">
+      <HintPath>..\packages\Cinchcast.Framework.Data.1.1.0.13316\lib\net40\Cinchcast.Framework.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Cinchcast.Framework.DependencyInjection.Autofac">
       <HintPath>..\packages\Cinchcast.Framework.DependencyInjection.Autofac.1.1.0.13316\lib\net40\Cinchcast.Framework.DependencyInjection.Autofac.dll</HintPath>
     </Reference>
@@ -91,7 +94,8 @@
     <Reference Include="protobuf-net">
       <HintPath>..\packages\protobuf-net.2.0.0.621\lib\net40\protobuf-net.dll</HintPath>
     </Reference>
-    <Reference Include="Seterlund.CodeGuard">
+    <Reference Include="Seterlund.CodeGuard, Version=2.2.4.35766, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Seterlund.CodeGuard.2.2.4\lib\net40\Seterlund.CodeGuard.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
@@ -222,46 +226,52 @@
   <ItemGroup>
     <Compile Include="App_Start\DependencyInjectionStart.cs" />
     <Compile Include="App_Start\HttpModules.cs" />
-    <Compile Include="Backend\Contracts\IQueryableEagerLoadProvider.cs" />
-    <Compile Include="Backend\Contracts\Services\ICategoryTopicService.cs" />
-    <Compile Include="Backend\Contracts\IQuery.cs" />
-    <Compile Include="Backend\Contracts\IRepository.cs" />
-    <Compile Include="Backend\Contracts\IUnitOfWork.cs" />
+    <Compile Include="Backend\Data\Orm\BaseRepository.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\QueryInterpreters\EntityFrameworkLinqQueryInterpreter.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\QueryInterpreters\EntityFrameworkStoredProcedureQueryInterpreter.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\QueryInterpreters\NhibernateLinqQueryInterpreter.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\QueryInterpreters\NhibernateStoredProcedureQueryInterpreter.cs" />
+    <Compile Include="Backend\Data\Queries\LinqPagedQuery.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\IQuery.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\IQueryableEagerLoadProvider.cs" />
+    <Compile Include="Backend\Data\Queries\LinqQuery.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\IQueryInterpreter.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\Services\ICategoryTopicService.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\IRepository.cs" />
+    <Compile Include="Backend\DomainModel\Contracts\IUnitOfWork.cs" />
+    <Compile Include="Backend\Data\Queries\StoredProcedureQuery.cs" />
     <Compile Include="Backend\DomainModel\PropertyExpression.cs" />
-    <Compile Include="Backend\DomainModel\QueryableEagerLoadProviderExtensions.cs" />
-    <Compile Include="Backend\DomainModel\QueryExtensions.cs" />
-    <Compile Include="Backend\EntityFramework\BtrDatabaseInitializer.cs" />
-    <Compile Include="Backend\EntityFramework\BtrDbContext.cs" />
-    <Compile Include="Backend\EntityFramework\EntityFrameworkQueraybleEagerLoadProvider.cs" />
-    <Compile Include="Backend\EntityFramework\Mappings\IEntityMapping.cs" />
-    <Compile Include="Backend\Nhibernate\NhibernateQueryableEagerLoadProvider.cs" />
+    <Compile Include="Backend\Data\QueryableEagerLoadProviderExtensions.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\BtrDatabaseInitializer.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\BtrDbContext.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\EntityFrameworkQueraybleEagerLoadProvider.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\IEntityMapping.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\NhibernateQueryableEagerLoadProvider.cs" />
     <Compile Include="Backend\UnitOfWorkHttpModule.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Backend\DomainModel\CategoryTopicEntity.cs" />
-    <Compile Include="Backend\DomainModel\GenreEntity.cs" />
-    <Compile Include="Backend\DomainModel\Queries\CategoryTopicsByCategory.cs" />
-    <Compile Include="Backend\EntityFramework\EntityFrameworkUnitOfWork.cs" />
-    <Compile Include="Backend\EntityFramework\EntityFrameworkRepository.cs" />
-    <Compile Include="Backend\EntityFramework\DbContextFactory.cs" />
-    <Compile Include="Backend\EntityFramework\Mappings\CategoryTopicMappings.cs" />
-    <Compile Include="Backend\EntityFramework\Mappings\ExpressionHelper.cs" />
-    <Compile Include="Backend\EntityFramework\Mappings\GenreMappings.cs" />
+    <Compile Include="Backend\DomainModel\Entities\CategoryTopicEntity.cs" />
+    <Compile Include="Backend\DomainModel\Entities\GenreEntity.cs" />
+    <Compile Include="Backend\Data\Queries\CategoryTopics\CategoryTopicsByCategory.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\EntityFrameworkUnitOfWork.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\EntityFrameworkRepository.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\DbContextFactory.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\CategoryTopicMappings.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\ExpressionHelper.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\GenreMappings.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Backend\DomainModel\Queries\AdHocQuery.cs" />
-    <Compile Include="Backend\DomainModel\Queries\Id.cs" />
-    <Compile Include="Backend\Nhibernate\LazySessionContext.cs" />
-    <Compile Include="Backend\Nhibernate\Mappings\CategoryTopicMappings.cs" />
-    <Compile Include="Backend\Nhibernate\Mappings\GenreMappings.cs" />
-    <Compile Include="Backend\Nhibernate\NhibernateRepository.cs" />
-    <Compile Include="Backend\Nhibernate\NhibernateUnitOfWork.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\LazySessionContext.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\Mappings\CategoryTopicMappings.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\Mappings\GenreMappings.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\NhibernateRepository.cs" />
+    <Compile Include="Backend\Data\Orm\Nhibernate\NhibernateUnitOfWork.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\Services\CategoryTopicService.cs" />
     <None Include="App_Start\NHibernateProfilerBootstrapper.cs" />
-    <None Include="Backend\Nhibernate\DependencyInjection\NhibernateModule.cs" />
+    <None Include="Backend\DependencyInjection\Nhibernate\NhibernateModule.cs" />
     <Compile Include="App_Start\EntityFrameworkProfilerBootstrapper.cs" />
-    <Compile Include="Backend\EntityFramework\DependencyInjection\EntityFrameworkModule.cs" />
+    <Compile Include="Backend\DependencyInjection\EntityFramework\EntityFrameworkModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -278,6 +288,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Backend\Nhibernate\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
