@@ -5,10 +5,8 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using NHibernate;
-using Web.Backend.Data.Orm.EntityFramework;
 using Web.Backend.Data.Queries;
 using Web.Backend.DomainModel.Contracts;
-using IQuery = Web.Backend.DomainModel.Contracts.IQuery;
 
 namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
 {
@@ -21,24 +19,24 @@ namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
             _sessionFactory = sessionFactory;
         }
 
-        public bool CanInterpret(IQuery query)
+        public bool CanInterpret(IQuery<T> query)
         {
-            return query is StoredProcedureQuery;
+            return query is StoredProcedureQuery<T>;
         }
 
-        public int Count(IQuery query = null)
+        public int Count(IQuery<T> query = null)
         {
-            return GetSqlQuery(query as StoredProcedureQuery).UniqueResult<int>();
+            return GetSqlQuery(query as StoredProcedureQuery<T>).UniqueResult<int>();
         }
 
-        public T Get(IQuery query)
+        public T Get(IQuery<T> query)
         {
-            return GetSqlQuery(query as StoredProcedureQuery).UniqueResult<T>();
+            return GetSqlQuery(query as StoredProcedureQuery<T>).UniqueResult<T>();
         }
 
-        public List<T> Query(IQuery query)
+        public List<T> Query(IQuery<T> query)
         {
-            return GetSqlQuery(query as StoredProcedureQuery).List<T>().ToList();
+            return GetSqlQuery(query as StoredProcedureQuery<T>).List<T>().ToList();
         }
 
         private ISession Session
@@ -46,7 +44,7 @@ namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
             get { return _sessionFactory.GetCurrentSession(); }
         }
 
-        private ISQLQuery GetSqlQuery(StoredProcedureQuery spQuery)
+        private ISQLQuery GetSqlQuery(StoredProcedureQuery<T> spQuery)
         {
             var sql = new StringBuilder();
             sql.Append("exec ");

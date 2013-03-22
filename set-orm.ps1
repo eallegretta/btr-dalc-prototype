@@ -50,7 +50,7 @@ Get-ChildItem -Recurse -Filter "Web.*csproj" | % {
 		$efFile.ParentNode.RemoveChild($efFile)
 		
 		$node = $proj.CreateElement("None", $ns)
-		$node.SetAttribute("Include", "Backend\EntityFramework\DependencyInjection\EntityFrameworkModule.cs")
+		$node.SetAttribute("Include", "Backend\DependencyInjection\EntityFramework\EntityFrameworkModule.cs")
 		
 		$efFile2.ParentNode.AppendChild($node)
 		$efFile2.ParentNode.RemoveChild($efFile2)
@@ -62,7 +62,7 @@ Get-ChildItem -Recurse -Filter "Web.*csproj" | % {
 		$nhFile.ParentNode.RemoveChild($nhFile)
 		
 		$node = $proj.CreateElement("Compile", $ns)
-		$node.SetAttribute("Include", "Backend\Nhibernate\DependencyInjection\NhibernateModule.cs")
+		$node.SetAttribute("Include", "Backend\DependencyInjection\Nhibernate\NhibernateModule.cs")
 		
 		$nhFile2.ParentNode.AppendChild($node)
 		$nhFile2.ParentNode.RemoveChild($nhFile2)
@@ -78,7 +78,7 @@ Get-ChildItem -Recurse -Filter "Web.*csproj" | % {
 		$nhFile.ParentNode.RemoveChild($nhFile)
 		
 		$node = $proj.CreateElement("None", $ns)
-		$node.SetAttribute("Include", "Backend\Nhibernate\DependencyInjection\NhibernateModule.cs")
+		$node.SetAttribute("Include", "Backend\DependencyInjection\Nhibernate\NhibernateModule.cs")
 		
 		$nhFile2.ParentNode.AppendChild($node)
 		$nhFile2.ParentNode.RemoveChild($nhFile2)
@@ -90,7 +90,7 @@ Get-ChildItem -Recurse -Filter "Web.*csproj" | % {
 		$efFile.ParentNode.RemoveChild($efFile)
 		
 		$node = $proj.CreateElement("Compile", $ns)
-		$node.SetAttribute("Include", "Backend\EntityFramework\DependencyInjection\EntityFrameworkModule.cs")
+		$node.SetAttribute("Include", "Backend\DependencyInjection\EntityFramework\EntityFrameworkModule.cs")
 		
 		$efFile2.ParentNode.AppendChild($node)
 		$efFile2.ParentNode.RemoveChild($efFile2)

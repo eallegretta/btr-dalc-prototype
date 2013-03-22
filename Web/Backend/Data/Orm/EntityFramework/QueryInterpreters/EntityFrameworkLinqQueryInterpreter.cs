@@ -37,13 +37,13 @@ namespace Web.Backend.Data.Orm.EntityFramework.QueryInterpreters
             return ApplyQuery(query).FirstOrDefault();
         }
 
-        private DbSet<T> ApplyQuery(IQuery query)
+        private IQueryable<T> ApplyQuery(IQuery query)
         {
             var linqQuery = query as LinqQuery<T>;
 
-            var queryable = _dbContextFactory.GetCurrentDbContext().Set<T>();
+            var queryable = (IQueryable<T>)_dbContextFactory.GetCurrentDbContext().Set<T>();
 
-            linqQuery.Apply(queryable);
+            queryable =  linqQuery.Apply(queryable);
             return queryable;
         }
     }

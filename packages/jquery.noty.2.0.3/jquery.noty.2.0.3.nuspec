@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>jquery.noty</id>
+    <version>2.0.3</version>
+    <title>jQuery Notification Plugin</title>
+    <authors>Nedim Arabacı</authors>
+    <owners>Nedim Arabacı</owners>
+    <licenseUrl>http://www.opensource.org/licenses/mit-license.php</licenseUrl>
+    <projectUrl>http://needim.github.com/noty/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>noty is a jQuery plugin that makes it easy to create alert - success - error - warning - information - confirmation messages as an alternative the standard alert dialog. Each notification is added to a queue. (Optional)
+
+The notifications can be positioned at the :
+top - topLeft - topCenter - topRight - center - centerLeft - centerRight - bottom - bottomLeft - bottomCenter - bottomRight
+
+There are lots of other options in the API to customise the text, animation, speed, buttons and much more.
+
+It also has various callbacks for the buttons, opening closing the notifications and queue control.</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <tags>jQuery noty notification</tags>
+    <dependencies>
+      <dependency id="jQuery" version="1.6" />
+    </dependencies>
+    <references />
+  </metadata>
+</package>

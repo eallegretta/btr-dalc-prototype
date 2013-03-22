@@ -49,3 +49,12 @@
 2013-03-11 01:34:17,905 [14] ERROR HibernatingRhinos.Profiler.Client.Infrastructure.AutoUpdate.ProfilerAutoUpdate [(null)] - Error while checking for updates: System.NullReferenceException: Object reference not set to an instance of an object.
    at NAppUpdate.Framework.UpdateManager.CheckForUpdates(IUpdateSource source, Action`1 callback) in z:\Projects\NAppUpdate\src\NAppUpdate.Framework\UpdateManager.cs:line 133
    at NAppUpdate.Framework.UpdateManager.<>c__DisplayClass2.<CheckForUpdateAsync>b__1() in z:\Projects\NAppUpdate\src\NAppUpdate.Framework\UpdateManager.cs:line 175
+2013-03-22 17:08:57,500 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Profiler initialized. Build: 2143
+2013-03-22 17:08:57,745 [7] INFO  HibernatingRhinos.Profiler.Client.Host.SilverlightLauncher [(null)] - OOB application was in already installed state. Trying to recover by uninstalling it.
+2013-03-22 17:08:59,218 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Attempt to start HTTP listener
+2013-03-22 17:08:59,218 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - HTTP listener started successfully
+2013-03-22 17:09:03,489 [5] WARN  Rhino.Licensing.AbstractLicenseValidator [(null)] - License expiration date is 04/12/2013 00:00:00
+2013-03-22 17:09:03,927 [5] DEBUG Rhino.Licensing.AbstractLicenseValidator [(null)] - License accepted for NHibernate Profiler
+2013-03-22 17:09:03,932 [4] INFO  HibernatingRhinos.Profiler.Client.Infrastructure.AutoUpdate.ProfilerAutoUpdate [(null)] - Checking for updates...
+2013-03-22 17:09:03,983 [5] DEBUG Rhino.Licensing.AbstractLicenseValidator [(null)] - License accepted for NHibernate Profiler
+2013-03-22 17:09:04,677 [4] INFO  HibernatingRhinos.Profiler.Client.Infrastructure.AutoUpdate.ProfilerAutoUpdate [(null)] - Found an update, starting downloading build #2146

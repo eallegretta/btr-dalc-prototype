@@ -2,19 +2,24 @@
 using System.Web.Mvc;
 using Cinchcast.Framework.Collections;
 using MvcContrib.Pagination;
+using Web.Backend.Data.Queries.Category;
 using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;
+using Web.Backend.DomainModel.Contracts;
 using Web.Backend.DomainModel.Contracts.Services;
 using Web.Backend.DomainModel.Entities;
+using Web.Models;
 
 namespace Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IRepository<GenreEntity> _categoryRepo;
         private readonly ICategoryTopicService _categoryTopicService;
 
-        public HomeController(ICategoryTopicService categoryTopicService)
+        public HomeController(IRepository<GenreEntity> categoryRepo, ICategoryTopicService categoryTopicService)
         {
+            _categoryRepo = categoryRepo;
             _categoryTopicService = categoryTopicService;
         }
 
@@ -36,7 +41,7 @@ namespace Web.Controllers
 
             var customPagination = new CustomPagination<CategoryTopicEntity>(topics, page, take, topics.TotalItems);
 
-            return View(customPagination);
+            return View(new HomeIndexViewModel(_categoryRepo.Query(new AllCategoriesQuery()), customPagination));
         }
 
         public ActionResult Edit(int id)

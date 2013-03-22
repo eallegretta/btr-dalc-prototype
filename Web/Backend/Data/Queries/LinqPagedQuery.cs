@@ -16,14 +16,14 @@ namespace Web.Backend.Data.Queries
             _take = take;
         }
 
-        public override void Apply(IQueryable<T> queryable)
+        public override IQueryable<T> Apply(IQueryable<T> queryable)
         {
             if (_skip > 0)
             {
                 queryable = queryable.Skip(_skip);
             }
 
-            queryable = queryable.Take(_take);
+            return queryable.Take(_take);
         }
     }
 }

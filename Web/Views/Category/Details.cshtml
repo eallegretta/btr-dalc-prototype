@@ -1,0 +1,11 @@
+﻿@model CategoryModel
+
+@Html.CrudBeginDetails("Category Details")
+<div class="display-label">Child Categories</div>
+<div>
+@Html.Grid(Model.ChildCategories).Columns(col =>
+        {
+            col.For(x => x.Description).Named("");
+        })
+</div>
+@Html.CrudEndDetails()

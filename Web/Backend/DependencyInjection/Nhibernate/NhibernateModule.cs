@@ -1,13 +1,15 @@
 ﻿using Autofac;
-using Cinchcast.Framework.Configuration;
+using Cinchcast.Framework.DependencyInjection.Autofac;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Bytecode;
-using Web.Backend.Contracts;
-using Web.Backend.DomainModel;
+using Web.Backend.Data.Orm.Nhibernate;
+using Web.Backend.Data.Orm.Nhibernate.QueryInterpreters;
+using Web.Backend.DomainModel.Contracts;
+using Web.Backend.DomainModel.Entities;
 
-namespace Web.Backend.Nhibernate.DependencyInjection
+namespace Web.Backend.DependencyInjection.Nhibernate
 {
     public class NhibernateModule: Module
     {
@@ -20,6 +22,11 @@ namespace Web.Backend.Nhibernate.DependencyInjection
             builder.RegisterType<NhibernateUnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<NhibernateQueryableEagerLoadProvider>().As<IQueryableEagerLoadProvider>();
             builder.RegisterGeneric(typeof (NhibernateRepository<>)).As(typeof (IRepository<>));
+
+            builder.RegisterGeneric(typeof (NhibernateLinqQueryInterpreter<>))
+                   .As(typeof (IQueryInterpreter<>));
+            builder.RegisterGeneric(typeof(NhibernateStoredProcedureQueryInterpreter<>))
+                   .As(typeof(IQueryInterpreter<>));
         }
 
         private static ISessionFactory Initialize(string connectionString)

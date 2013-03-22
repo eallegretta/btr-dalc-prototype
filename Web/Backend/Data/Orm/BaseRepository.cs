@@ -16,7 +16,7 @@ namespace Web.Backend.Data.Orm
             _queryInterpreters = queryInterpreters;
         }
 
-        protected virtual IQueryInterpreter<T> GetQueryInterpreter(IQuery query)
+        protected virtual IQueryInterpreter<T> GetQueryInterpreter(IQuery<T> query)
         {
             if (query == null)
             {
@@ -35,13 +35,18 @@ namespace Web.Backend.Data.Orm
 
         public abstract T Get(object id);
 
-        public virtual T Get(IQuery query)
+        public virtual T Get(IQuery<T> query)
         {
             return GetQueryInterpreter(query).Get(query);
         }
 
-        public virtual int Count(IQuery query = null)
+        public virtual int Count(IQuery<T> query = null)
         {
+            if (query == null)
+            {
+                query = new LinqPagedQuery<T>(0, 1);
+            }
+
             return GetQueryInterpreter(query).Count(query);
         }
 
@@ -51,7 +56,7 @@ namespace Web.Backend.Data.Orm
             return GetQueryInterpreter(query).Query(query);
         }
 
-        public virtual List<T> Query(IQuery query)
+        public virtual List<T> Query(IQuery<T> query)
         {
             return GetQueryInterpreter(query).Query(query);
         }

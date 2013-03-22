@@ -1,15 +1,22 @@
 ﻿
 @using MvcContrib.UI.Grid
 @using MvcContrib.UI.Pager
-@model MvcContrib.Pagination.IPagination<Web.Backend.DomainModel.Entities.CategoryTopicEntity>
+@model HomeIndexViewModel
 
 <h2>title</h2>
 
-@Html.Grid(Model).Columns(c =>
+<select id="category" name="category">
+    @foreach (var category in Model.Categories)
+    {
+        <option value="@category.GenreUrl">@category.GenreDescription</option>
+    }
+</select>
+
+@Html.Grid(Model.CategoryTopics).Columns(c =>
     {
         c.For(x => x.Id).Format("<a href=\"/home/edit/{0}\">Edit</a>").Encode(false);
         c.For(x => x.Name).Named("Name");
         c.For(x => x.Category.GenreDescription).Named("Category");
     })
 
-@Html.Raw(Html.Pager(Model))
+@Html.Raw(Html.Pager(Model.CategoryTopics))

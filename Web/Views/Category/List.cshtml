@@ -1,0 +1,9 @@
+﻿@model IPagination<GenreEntity>
+
+
+@Html.Raw(Html.CrudGrid(Model, x => x.GenreId).Columns(c => {
+	c.For(x => x.GenreDescription).Named("Description");
+    c.For(x => x.GenreUrl).Named("Url");
+}).ToString()) 
+
+@Html.CrudPager(Model)

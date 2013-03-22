@@ -4,7 +4,6 @@ using NHibernate;
 using NHibernate.Linq;
 using Web.Backend.Data.Queries;
 using Web.Backend.DomainModel.Contracts;
-using IQuery = Web.Backend.DomainModel.Contracts.IQuery;
 
 namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
 {
@@ -17,33 +16,33 @@ namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
             _sessionFactory = sessionFactory;
         }
 
-        public bool CanInterpret(IQuery query)
+        public bool CanInterpret(IQuery<T> query)
         {
             return query is LinqQuery<T>;
         }
 
-        public int Count(IQuery query = null)
+        public int Count(IQuery<T> query = null)
         {
             return ApplyQuery(query).Count();
         }
 
-        public List<T> Query(IQuery query)
+        public List<T> Query(IQuery<T> query)
         {
             return ApplyQuery(query).ToList();
         }
 
-        public T Get(IQuery query)
+        public T Get(IQuery<T> query)
         {
             return ApplyQuery(query).FirstOrDefault();
         }
 
-        private IQueryable<T> ApplyQuery(IQuery query)
+        private IQueryable<T> ApplyQuery(IQuery<T> query)
         {
             var linqQuery = query as LinqQuery<T>;
 
             var queryable = _sessionFactory.GetCurrentSession().Query<T>();
 
-            linqQuery.Apply(queryable);
+            queryable = linqQuery.Apply(queryable);
 
             return queryable;
         }
