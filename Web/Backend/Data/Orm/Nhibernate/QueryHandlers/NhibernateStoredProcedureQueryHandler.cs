@@ -46,16 +46,22 @@ namespace Web.Backend.Data.Orm.Nhibernate.QueryHandlers
             sql.Append("exec ");
             sql.Append(spQuery.StoredProcedure);
 
-            foreach (var param in spQuery.Parameters.Keys)
+            if (spQuery.Parameters != null)
             {
-                sql.AppendFormat(" @{0}=:{0}", param);
+                foreach (var param in spQuery.Parameters.Keys)
+                {
+                    sql.AppendFormat(" @{0}=:{0}", param);
+                }
             }
 
             var query = Session.CreateSQLQuery(sql.ToString());
 
-            foreach (var param in spQuery.Parameters)
+            if (spQuery.Parameters != null)
             {
-                query.SetParameter(param.Key, param.Value);
+                foreach (var param in spQuery.Parameters)
+                {
+                    query.SetParameter(param.Key, param.Value);
+                }
             }
 
             return query;
