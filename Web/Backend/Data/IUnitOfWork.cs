@@ -1,5 +1,5 @@
 ﻿
-namespace Web.Backend.DomainModel.Contracts
+namespace Web.Backend.Data
 {
     public interface IUnitOfWork
     {

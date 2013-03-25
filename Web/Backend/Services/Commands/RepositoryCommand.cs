@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Cinchcast.Framework.Commands;
+using Web.Backend.Data;
 using Web.Backend.DomainModel.Contracts;
 
 namespace Web.Backend.Services.Commands

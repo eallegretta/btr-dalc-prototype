@@ -7,23 +7,23 @@ namespace Web.Backend.Data.Queries
 {
     public class LinqPagedQuery<T>: LinqQuery<T> where T: class, new()
     {
-        private readonly int _skip;
-        private readonly int _take;
-
-        public LinqPagedQuery(int skip = 0, int take = 1000)
+        public LinqPagedQuery()
         {
-            _skip = skip;
-            _take = take;
+            Skip = 0;
+            Take = 1000;
         }
+
+        public int Skip { get; set; }
+        public int Take { get; set; }
 
         public override IQueryable<T> Apply(IQueryable<T> queryable)
         {
-            if (_skip > 0)
+            if (Skip > 0)
             {
-                queryable = queryable.Skip(_skip);
+                queryable = queryable.Skip(Skip);
             }
 
-            return queryable.Take(_take);
+            return queryable.Take(Take);
         }
     }
 }

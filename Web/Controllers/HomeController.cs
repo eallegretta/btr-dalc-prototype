@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Cinchcast.Framework.Collections;
 using MvcContrib.Pagination;
+using Web.Backend.Data;
 using Web.Backend.Data.Queries.Category;
 using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;

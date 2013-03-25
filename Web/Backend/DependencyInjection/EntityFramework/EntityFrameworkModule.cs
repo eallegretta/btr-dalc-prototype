@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Web.Backend.Data;
 using Web.Backend.Data.Orm.EntityFramework;
 using Web.Backend.Data.Orm.EntityFramework.Mappings;
 using Web.Backend.DomainModel.Contracts;

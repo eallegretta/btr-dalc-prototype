@@ -9,21 +9,21 @@ namespace Web.Backend.Data.Orm
 {
     public abstract class BaseRepository<T>: IRepository<T> where T: class, new()
     {
-        private readonly IEnumerable<IQueryInterpreter<T>> _queryInterpreters;
+        private readonly IEnumerable<IQueryHandler<T>> _queryInterpreters;
 
-        public BaseRepository(IEnumerable<IQueryInterpreter<T>> queryInterpreters)
+        public BaseRepository(IEnumerable<IQueryHandler<T>> queryInterpreters)
         {
             _queryInterpreters = queryInterpreters;
         }
 
-        protected virtual IQueryInterpreter<T> GetQueryInterpreter(IQuery<T> query)
+        protected virtual IQueryHandler<T> GetQueryInterpreter(IQuery<T> query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException("query", "The query is required");
             }
 
-            var interpreter = _queryInterpreters.FirstOrDefault(x => x.CanInterpret(query));
+            var interpreter = _queryInterpreters.FirstOrDefault(x => x.CanHandle(query));
 
             if (interpreter == null)
             {
@@ -44,15 +44,15 @@ namespace Web.Backend.Data.Orm
         {
             if (query == null)
             {
-                query = new LinqPagedQuery<T>(0, 1);
+                query = new LinqPagedQuery<T>{ Skip = 0, Take = 1 };
             }
 
             return GetQueryInterpreter(query).Count(query);
         }
 
-        public virtual List<T> All(int skip = 0, int take = 1000)
+        public virtual List<T> GetAll(int skip = 0, int take = 1000)
         {
-            var query = new LinqPagedQuery<T>(skip, take);
+            var query = new LinqPagedQuery<T> { Skip = skip, Take = take };
             return GetQueryInterpreter(query).Query(query);
         }
 

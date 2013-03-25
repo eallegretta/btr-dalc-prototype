@@ -5,6 +5,7 @@ using AutoMapper;
 using Cinchcast.Framework.Commands;
 using Microsoft.Practices.ServiceLocation;
 using MvcContrib.Pagination;
+using Web.Backend.Data;
 using Web.Backend.Data.Queries;
 using Web.Backend.DomainModel.Contracts;
 using Web.Backend.Services.Commands;
@@ -53,7 +54,7 @@ namespace Web.Controllers
         {
             int skip = (page - 1)*15;
 
-            var items = ListQuery(new LinqPagedQuery<TEntity>(skip, 15));
+            var items = ListQuery(new LinqPagedQuery<TEntity> { Skip = skip, Take = 15 });
 
             var customPagination = new CustomPagination<TEntity>(items, page, 15, CountQuery());
 

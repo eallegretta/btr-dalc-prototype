@@ -8,16 +8,14 @@ namespace Web.Backend.Data.Queries.CategoryTopics
 {
     public class CategoryTopicsByCategory : LinqPagedQuery<CategoryTopicEntity>
     {
-        private readonly string _categoryUrl;
-
-        public CategoryTopicsByCategory(string categoryUrl, int skip = 0, int take = 1000): base(skip, take)
-        {
-            _categoryUrl = categoryUrl;
-        }
+        public string CategoryUrl { get; set; }
 
         public override IQueryable<CategoryTopicEntity> Apply(IQueryable<CategoryTopicEntity> queryable)
         {
-            queryable = queryable.Where(x => x.Category.GenreUrl == _categoryUrl);
+            if (!string.IsNullOrWhiteSpace(CategoryUrl))
+            {
+                queryable = queryable.Where(x => x.Category.GenreUrl == CategoryUrl);    
+            }
 
             return base.Apply(queryable);
         }

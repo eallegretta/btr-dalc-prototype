@@ -1,25 +1,21 @@
 ﻿using System.Collections.Generic;
-using System.Data;
-using System.Data.Common;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using NHibernate;
 using Web.Backend.Data.Queries;
-using Web.Backend.DomainModel.Contracts;
 
-namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
+namespace Web.Backend.Data.Orm.Nhibernate.QueryHandlers
 {
-    public class NhibernateStoredProcedureQueryInterpreter<T> : IQueryInterpreter<T> where T: class, new()
+    public class NhibernateStoredProcedureQueryHandler<T> : IQueryHandler<T> where T: class, new()
     {
         private readonly ISessionFactory _sessionFactory;
 
-        public NhibernateStoredProcedureQueryInterpreter(ISessionFactory sessionFactory)
+        public NhibernateStoredProcedureQueryHandler(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
 
-        public bool CanInterpret(IQuery<T> query)
+        public bool CanHandle(IQuery<T> query)
         {
             return query is StoredProcedureQuery<T>;
         }

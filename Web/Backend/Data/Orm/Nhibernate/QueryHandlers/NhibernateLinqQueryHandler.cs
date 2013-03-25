@@ -3,20 +3,19 @@ using System.Linq;
 using NHibernate;
 using NHibernate.Linq;
 using Web.Backend.Data.Queries;
-using Web.Backend.DomainModel.Contracts;
 
-namespace Web.Backend.Data.Orm.Nhibernate.QueryInterpreters
+namespace Web.Backend.Data.Orm.Nhibernate.QueryHandlers
 {
-    public class NhibernateLinqQueryInterpreter<T> : IQueryInterpreter<T> where T : class, new()
+    public class NhibernateLinqQueryHandler<T> : IQueryHandler<T> where T : class, new()
     {
         private readonly ISessionFactory _sessionFactory;
 
-        public NhibernateLinqQueryInterpreter(ISessionFactory sessionFactory)
+        public NhibernateLinqQueryHandler(ISessionFactory sessionFactory)
         {
             _sessionFactory = sessionFactory;
         }
 
-        public bool CanInterpret(IQuery<T> query)
+        public bool CanHandle(IQuery<T> query)
         {
             return query is LinqQuery<T>;
         }

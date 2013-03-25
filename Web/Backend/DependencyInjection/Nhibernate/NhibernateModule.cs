@@ -4,8 +4,9 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Bytecode;
+using Web.Backend.Data;
 using Web.Backend.Data.Orm.Nhibernate;
-using Web.Backend.Data.Orm.Nhibernate.QueryInterpreters;
+using Web.Backend.Data.Orm.Nhibernate.QueryHandlers;
 using Web.Backend.DomainModel.Contracts;
 using Web.Backend.DomainModel.Entities;
 
@@ -23,10 +24,10 @@ namespace Web.Backend.DependencyInjection.Nhibernate
             builder.RegisterType<NhibernateQueryableEagerLoadProvider>().As<IQueryableEagerLoadProvider>();
             builder.RegisterGeneric(typeof (NhibernateRepository<>)).As(typeof (IRepository<>));
 
-            builder.RegisterGeneric(typeof (NhibernateLinqQueryInterpreter<>))
-                   .As(typeof (IQueryInterpreter<>));
-            builder.RegisterGeneric(typeof(NhibernateStoredProcedureQueryInterpreter<>))
-                   .As(typeof(IQueryInterpreter<>));
+            builder.RegisterGeneric(typeof (NhibernateLinqQueryHandler<>))
+                   .As(typeof (IQueryHandler<>));
+            builder.RegisterGeneric(typeof(NhibernateStoredProcedureQueryHandler<>))
+                   .As(typeof(IQueryHandler<>));
         }
 
         private static ISessionFactory Initialize(string connectionString)
