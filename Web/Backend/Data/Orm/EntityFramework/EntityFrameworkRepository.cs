@@ -28,8 +28,8 @@ namespace Web.Backend.Data.Orm.EntityFramework
 
         private readonly IDbContextFactory _dbContextFactory;
 
-        public EntityFrameworkRepository(IDbContextFactory dbContextFactory, IEnumerable<IQueryInterpreter<T>> queryInterpreters)
-            : base(queryInterpreters)
+        public EntityFrameworkRepository(IDbContextFactory dbContextFactory, IEnumerable<IQueryHandler<T>> queryHandlers)
+            : base(queryHandlers)
         {
             _dbContextFactory = dbContextFactory;
         }

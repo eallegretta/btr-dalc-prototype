@@ -1,5 +1,6 @@
 ﻿using Cinchcast.Framework.Collections;
 using Web.Backend.Data;
+using Web.Backend.Data.Queries;
 using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;
 using System.Linq;
@@ -29,7 +30,13 @@ namespace Web.Backend.Services
         {
             int count = _categoryTopicRepoReadOnly.Count();
 
-            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.GetAll(skip, take));
+            var allQuery = new LinqAdHocSortedQuery<CategoryTopicEntity, int>(null, x => x.Id)
+                {
+                    Skip = skip,
+                    Take = take
+                };
+
+            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.Query(allQuery));
         }
 
         public PagedList<CategoryTopicEntity> GetAllByCategory(string category, int skip, int take)

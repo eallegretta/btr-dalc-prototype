@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Web;
+using Cinchcast.Framework.DependencyInjection.Autofac;
 using Microsoft.Practices.ServiceLocation;
+using Web.Backend.DependencyInjection;
 using Web.Backend.DomainModel.Contracts;
 
 namespace Web.Backend.Data.Orm.EntityFramework
@@ -49,7 +51,7 @@ namespace Web.Backend.Data.Orm.EntityFramework
 
         private static IEnumerable<IDbContextFactory> GetDbContextFactories()
         {
-            return ServiceLocator.Current.GetAllInstances<IDbContextFactory>();
+            return Ioc.Instance.Container.ResolveAll<IDbContextFactory>();
         }
     }
 }

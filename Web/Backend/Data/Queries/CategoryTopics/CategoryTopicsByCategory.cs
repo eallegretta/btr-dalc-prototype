@@ -17,7 +17,7 @@ namespace Web.Backend.Data.Queries.CategoryTopics
                 queryable = queryable.Where(x => x.Category.GenreUrl == CategoryUrl);    
             }
 
-            return base.Apply(queryable);
+            return base.Apply(queryable.OrderBy(x => x.Description));
         }
     }
 

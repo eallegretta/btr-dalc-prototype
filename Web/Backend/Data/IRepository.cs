@@ -7,7 +7,6 @@ namespace Web.Backend.Data
         T Get(object id);
         T Get(IQuery<T> query);
         int Count(IQuery<T> query = null);
-        List<T> GetAll(int skip = 0, int take = 1000);
         List<T> Query(IQuery<T> query);
         T SaveOrUpdate(T instance);
         void Delete(object id);

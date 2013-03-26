@@ -23,14 +23,14 @@ namespace Web.Backend.Data.Orm
                 throw new ArgumentNullException("query", "The query is required");
             }
 
-            var interpreter = _queryHandlers.FirstOrDefault(x => x.CanHandle(query));
+            var queryHandler = _queryHandlers.FirstOrDefault(x => x.CanHandle(query));
 
-            if (interpreter == null)
+            if (queryHandler == null)
             {
                 throw new Exception(string.Format("There query of type {0} cannot be handled", query.GetType()));
             }
 
-            return interpreter;
+            return queryHandler;
         }
 
         public abstract T Get(object id);
@@ -44,16 +44,10 @@ namespace Web.Backend.Data.Orm
         {
             if (query == null)
             {
-                query = new LinqPagedQuery<T>{ Skip = 0, Take = 1 };
+                query = new LinqAdHocQuery<T>();;
             }
 
             return GetQueryHandler(query).Count(query);
-        }
-
-        public virtual List<T> GetAll(int skip = 0, int take = 1000)
-        {
-            var query = new LinqPagedQuery<T> { Skip = skip, Take = take };
-            return GetQueryHandler(query).Query(query);
         }
 
         public virtual List<T> Query(IQuery<T> query)
