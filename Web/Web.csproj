@@ -66,7 +66,7 @@
       <HintPath>..\packages\FluentNHibernate.1.3.0.733\lib\FluentNHibernate.dll</HintPath>
     </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender">
-      <HintPath>..\packages\EntityFrameworkProfiler.2.0.2143.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
+      <HintPath>..\packages\NHibernateProfiler.2.0.2143.0\lib\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
     <Reference Include="Iesi.Collections">
       <HintPath>..\packages\Iesi.Collections.3.2.0.4000\lib\Net35\Iesi.Collections.dll</HintPath>
@@ -330,10 +330,10 @@
     <Compile Include="Mvc\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\Services\CategoryTopicService.cs" />
-    <None Include="App_Start\NHibernateProfilerBootstrapper.cs" />
-    <None Include="Backend\DependencyInjection\Nhibernate\NhibernateModule.cs" />
-    <Compile Include="App_Start\EntityFrameworkProfilerBootstrapper.cs" />
-    <Compile Include="Backend\DependencyInjection\EntityFramework\EntityFrameworkModule.cs" />
+    <None Include="App_Start\EntityFrameworkProfilerBootstrapper.cs" />
+    <None Include="Backend\DependencyInjection\EntityFramework\EntityFrameworkModule.cs" />
+    <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
+    <Compile Include="Backend\DependencyInjection\Nhibernate\NhibernateModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
