@@ -266,7 +266,9 @@
     <Compile Include="App_Start\DependencyInjectionStart.cs" />
     <Compile Include="App_Start\HttpModules.cs" />
     <Compile Include="App_Start\ModelMappings.cs" />
+    <Compile Include="Backend\Data\RepositoryFactory.cs" />
     <Compile Include="Backend\Data\Orm\BaseRepository.cs" />
+    <Compile Include="Backend\Data\Orm\DatabaseMappingAttribute.cs" />
     <Compile Include="Backend\Data\Orm\Nhibernate\QueryHandlers\NhibernateLinqQueryHandler.cs" />
     <Compile Include="Backend\Data\Orm\Nhibernate\QueryHandlers\NhibernateStoredProcedureQueryHandler.cs" />
     <Compile Include="Backend\Data\Queries\Category\AllCategoriesQuery.cs" />
@@ -276,6 +278,8 @@
     <Compile Include="Backend\Data\IQueryableEagerLoadProvider.cs" />
     <Compile Include="Backend\Data\Queries\LinqQuery.cs" />
     <Compile Include="Backend\Data\IQueryHandler.cs" />
+    <Compile Include="Backend\DependencyInjection\ContainerExtensions.cs" />
+    <Compile Include="Backend\DependencyInjection\RepositoryFactoryModule.cs" />
     <Compile Include="Backend\DomainModel\Contracts\Services\ICategoryTopicService.cs" />
     <Compile Include="Backend\Data\IRepository.cs" />
     <Compile Include="Backend\Data\IUnitOfWork.cs" />

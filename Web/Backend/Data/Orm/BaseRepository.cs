@@ -9,25 +9,25 @@ namespace Web.Backend.Data.Orm
 {
     public abstract class BaseRepository<T>: IRepository<T> where T: class, new()
     {
-        private readonly IEnumerable<IQueryHandler<T>> _queryInterpreters;
+        private readonly IEnumerable<IQueryHandler<T>> _queryHandlers;
 
-        public BaseRepository(IEnumerable<IQueryHandler<T>> queryInterpreters)
+        public BaseRepository(IEnumerable<IQueryHandler<T>> queryHandlers)
         {
-            _queryInterpreters = queryInterpreters;
+            _queryHandlers = queryHandlers;
         }
 
-        protected virtual IQueryHandler<T> GetQueryInterpreter(IQuery<T> query)
+        protected virtual IQueryHandler<T> GetQueryHandler(IQuery<T> query)
         {
             if (query == null)
             {
                 throw new ArgumentNullException("query", "The query is required");
             }
 
-            var interpreter = _queryInterpreters.FirstOrDefault(x => x.CanHandle(query));
+            var interpreter = _queryHandlers.FirstOrDefault(x => x.CanHandle(query));
 
             if (interpreter == null)
             {
-                throw new Exception(string.Format("There query of type {0} cannot be interpreted", query.GetType()));
+                throw new Exception(string.Format("There query of type {0} cannot be handled", query.GetType()));
             }
 
             return interpreter;
@@ -37,7 +37,7 @@ namespace Web.Backend.Data.Orm
 
         public virtual T Get(IQuery<T> query)
         {
-            return GetQueryInterpreter(query).Get(query);
+            return GetQueryHandler(query).Get(query);
         }
 
         public virtual int Count(IQuery<T> query = null)
@@ -47,18 +47,18 @@ namespace Web.Backend.Data.Orm
                 query = new LinqPagedQuery<T>{ Skip = 0, Take = 1 };
             }
 
-            return GetQueryInterpreter(query).Count(query);
+            return GetQueryHandler(query).Count(query);
         }
 
         public virtual List<T> GetAll(int skip = 0, int take = 1000)
         {
             var query = new LinqPagedQuery<T> { Skip = skip, Take = take };
-            return GetQueryInterpreter(query).Query(query);
+            return GetQueryHandler(query).Query(query);
         }
 
         public virtual List<T> Query(IQuery<T> query)
         {
-            return GetQueryInterpreter(query).Query(query);
+            return GetQueryHandler(query).Query(query);
         }
 
         public abstract T SaveOrUpdate(T instance);

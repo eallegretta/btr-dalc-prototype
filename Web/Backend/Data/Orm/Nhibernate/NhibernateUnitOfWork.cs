@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Practices.ServiceLocation;
+using Cinchcast.Framework.DependencyInjection.Autofac;
 using NHibernate;
-using Web.Backend.DomainModel.Contracts;
+using Web.Backend.DependencyInjection;
 
 namespace Web.Backend.Data.Orm.Nhibernate
 {
@@ -77,12 +77,14 @@ namespace Web.Backend.Data.Orm.Nhibernate
         /// </summary>
         private IEnumerable<ISessionFactory> GetSessionFactories()
         {
-            var sessionFactories = ServiceLocator.Current.GetAllInstances<ISessionFactory>();
+            var sessionFactories = Ioc.Instance.Container.ResolveAll<ISessionFactory>();
 
             if (sessionFactories == null || !sessionFactories.Any())
                 throw new TypeLoadException("At least one ISessionFactory has not been registered with IoC");
 
             return sessionFactories;
         }
+
+        
     }
 }

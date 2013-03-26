@@ -11,7 +11,7 @@ namespace Web.Backend.Data.Orm.Nhibernate
     {
         private readonly ISessionFactory _sessionFactory;
 
-        public NhibernateRepository(ISessionFactory sessionFactory, IEnumerable<IQueryHandler<T>> queryInterpreters): base(queryInterpreters)
+        public NhibernateRepository(ISessionFactory sessionFactory, IEnumerable<IQueryHandler<T>> queryHandlersInterpreters): base(queryHandlersInterpreters)
         {
             _sessionFactory = sessionFactory;
         }

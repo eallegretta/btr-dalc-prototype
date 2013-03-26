@@ -12,10 +12,12 @@ namespace Web.Backend.Services
     public class CategoryTopicService : ICategoryTopicService
     {
         private readonly IRepository<CategoryTopicEntity> _categoryTopicRepo;
+        private readonly IRepository<CategoryTopicEntity> _categoryTopicRepoReadOnly; 
 
-        public CategoryTopicService(IRepository<CategoryTopicEntity> categoryTopicRepo)
+        public CategoryTopicService(IRepositoryFactory<CategoryTopicEntity> categoryTopicRepoFactory)
         {
-            _categoryTopicRepo = categoryTopicRepo;
+            _categoryTopicRepo = categoryTopicRepoFactory.GetDefault();
+            _categoryTopicRepoReadOnly = categoryTopicRepoFactory.Get("Read");
         }
 
         public CategoryTopicEntity Get(int id)
@@ -25,7 +27,7 @@ namespace Web.Backend.Services
 
         public PagedList<CategoryTopicEntity> GetAll(int skip, int take)
         {
-            int count = _categoryTopicRepo.Count();
+            int count = _categoryTopicRepoReadOnly.Count();
 
             return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.GetAll(skip, take));
         }
