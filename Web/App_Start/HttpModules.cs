@@ -1,4 +1,5 @@
-﻿using Cinchcast.Framework.Configuration;
+﻿using BlogTalkRadio.Common.Data.Web;
+using Cinchcast.Framework.Configuration;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Web.App_Start;
 using Web.Backend;

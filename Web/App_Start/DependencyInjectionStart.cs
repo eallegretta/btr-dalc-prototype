@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using BlogTalkRadio.Common.Data.NHibernate.DependencyInjection;
 using Cinchcast.Framework.DependencyInjection.Autofac;
 using Web.App_Start;
 
@@ -12,7 +13,7 @@ namespace Web.App_Start
         public static void Start()
         {
             Ioc.Instance.SetAssembliesResolver(() => AppDomain.CurrentDomain.GetAssemblies().Where(x => x.GetName().Name.StartsWith("Web", StringComparison.OrdinalIgnoreCase)));
-            Ioc.Instance.Initialize(typeof(DependencyInjectionStart).Assembly);
+            Ioc.Instance.Initialize(typeof(DependencyInjectionStart).Assembly, typeof(NHibernateModule).Assembly);
         }
 
     }

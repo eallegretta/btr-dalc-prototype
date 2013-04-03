@@ -9,6 +9,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		set-orm.ps1 = set-orm.ps1
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogTalkRadio.Common.Data", "BlogTalkRadio.Common.Data\BlogTalkRadio.Common.Data.csproj", "{B1EC9C9A-A886-47BE-BA80-D4B3A50F066B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogTalkRadio.Common.Data.NHibernate", "BlogTalkRadio.Common.Data.NHibernate\BlogTalkRadio.Common.Data.NHibernate.csproj", "{3AAB8A75-8F77-4DC5-823E-8F9F2983DCD2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogTalkRadio.Common.Data.EntityFramework", "BlogTalkRadio.Common.Data.EntityFramework\BlogTalkRadio.Common.Data.EntityFramework.csproj", "{C6118BF8-4748-4C11-904E-54214FF69398}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +25,18 @@ Global
 		{0CF6EA2F-3365-40C8-AEB4-E50C339C8A51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0CF6EA2F-3365-40C8-AEB4-E50C339C8A51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0CF6EA2F-3365-40C8-AEB4-E50C339C8A51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EC9C9A-A886-47BE-BA80-D4B3A50F066B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EC9C9A-A886-47BE-BA80-D4B3A50F066B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EC9C9A-A886-47BE-BA80-D4B3A50F066B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EC9C9A-A886-47BE-BA80-D4B3A50F066B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AAB8A75-8F77-4DC5-823E-8F9F2983DCD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AAB8A75-8F77-4DC5-823E-8F9F2983DCD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AAB8A75-8F77-4DC5-823E-8F9F2983DCD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AAB8A75-8F77-4DC5-823E-8F9F2983DCD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6118BF8-4748-4C11-904E-54214FF69398}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6118BF8-4748-4C11-904E-54214FF69398}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6118BF8-4748-4C11-904E-54214FF69398}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6118BF8-4748-4C11-904E-54214FF69398}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

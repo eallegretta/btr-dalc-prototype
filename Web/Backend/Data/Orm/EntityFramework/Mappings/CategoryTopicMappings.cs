@@ -1,5 +1,7 @@
-﻿using System.Data.Entity.ModelConfiguration;
+﻿
+using System.Data.Entity.ModelConfiguration;
 using System.Data.Entity.ModelConfiguration.Configuration;
+using BlogTalkRadio.Common.Data.Orm.EntityFramework.Mappings;
 using Web.Backend.DomainModel.Entities;
 
 namespace Web.Backend.Data.Orm.EntityFramework.Mappings

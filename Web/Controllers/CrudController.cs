@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using BlogTalkRadio.Common.Data;
+using BlogTalkRadio.Common.Data.Queries;
 using Cinchcast.Framework.Commands;
 using Microsoft.Practices.ServiceLocation;
 using MvcContrib.Pagination;

@@ -1,4 +1,6 @@
-﻿using Cinchcast.Framework.Collections;
+﻿using BlogTalkRadio.Common.Data;
+using BlogTalkRadio.Common.Data.Queries;
+using Cinchcast.Framework.Collections;
 using Web.Backend.Data;
 using Web.Backend.Data.Queries;
 using Web.Backend.Data.Queries.CategoryTopics;
@@ -12,23 +14,21 @@ namespace Web.Backend.Services
 {
     public class CategoryTopicService : ICategoryTopicService
     {
-        private readonly IRepository<CategoryTopicEntity> _categoryTopicRepo;
-        private readonly IRepository<CategoryTopicEntity> _categoryTopicRepoReadOnly; 
+        private readonly IRepository<CategoryTopicEntity> _categoryTopicRepository;
 
-        public CategoryTopicService(IRepositoryFactory<CategoryTopicEntity> categoryTopicRepoFactory)
+        public CategoryTopicService(IRepository<CategoryTopicEntity> categoryTopicRepository)
         {
-            _categoryTopicRepo = categoryTopicRepoFactory.GetDefault();
-            _categoryTopicRepoReadOnly = categoryTopicRepoFactory.Get("Read");
+            _categoryTopicRepository = categoryTopicRepository;
         }
 
         public CategoryTopicEntity Get(int id)
         {
-            return _categoryTopicRepo.Get(id);
+            return _categoryTopicRepository.Get(id);
         }
 
         public PagedList<CategoryTopicEntity> GetAll(int skip, int take)
         {
-            int count = _categoryTopicRepoReadOnly.Count();
+            int count = _categoryTopicRepository.Count();
 
             var allQuery = new LinqAdHocSortedQuery<CategoryTopicEntity, int>(null, x => x.Id)
                 {
@@ -36,16 +36,16 @@ namespace Web.Backend.Services
                     Take = take
                 };
 
-            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.Query(allQuery));
+            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepository.Query(allQuery));
         }
 
         public PagedList<CategoryTopicEntity> GetAllByCategory(string category, int skip, int take)
         {
             var query = new CategoryTopicsByCategory { CategoryUrl = category, Skip = skip, Take = take };
 
-            int count = _categoryTopicRepo.Count(query);
+            int count = _categoryTopicRepository.Count(query);
 
-            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepo.Query(query));
+            return new PagedList<CategoryTopicEntity>(count, _categoryTopicRepository.Query(query));
         }
     }
 }

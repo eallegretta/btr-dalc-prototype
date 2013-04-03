@@ -1,8 +1,8 @@
-﻿using Autofac;
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.Mappers;
+using Autofac;
 
-namespace Web.Backend.DependencyInjection
+namespace BlogTalkRadio.Common.Data.DependencyInjection
 {
     public class AutoMapperModule : Module
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using BlogTalkRadio.Common.Data;
 using Cinchcast.Framework.Commands;
 using Web.Backend.Data;
 using Web.Backend.DomainModel.Contracts;

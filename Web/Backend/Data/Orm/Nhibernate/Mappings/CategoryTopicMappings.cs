@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using Web.Backend.DomainModel.Entities;
 
-namespace Web.Backend.Data.Orm.Nhibernate.Mappings
+namespace BlogTalkRadio.Common.Data.NHibernate.Mappings
 {
     public class CategoryTopicMappings : ClassMap<CategoryTopicEntity>
     {
