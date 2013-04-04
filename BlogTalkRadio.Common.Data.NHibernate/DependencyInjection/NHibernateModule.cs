@@ -19,11 +19,14 @@ namespace BlogTalkRadio.Common.Data.NHibernate.DependencyInjection
         private static readonly Type[] _mappingTypes = GetMappingTypes();
         private static Func<string, Type, bool> _mappingTypesForDatabaseEvaluator;
 
-        private bool IsQueryHandler(Type type)
-        {
-            string @namespace = typeof (NHibernateLinqQueryHandler<>).Namespace;
+        public const string SESSION_FACTORY_KEY = "{0}-sessionFactory";
 
-            return type.Namespace == @namespace;
+        private static IEnumerable<Type> GetQueryHandlers()
+        {
+            return from t in typeof (NHibernateModule).Assembly.GetTypes()
+                   from i in t.GetInterfaces()
+                   where i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IQueryHandler<>)
+                   select t;
         }
 
         private static Type[] GetMappingTypes()
@@ -43,16 +46,17 @@ namespace BlogTalkRadio.Common.Data.NHibernate.DependencyInjection
                 var connectionString = ConfigurationManager.ConnectionStrings[index];
                 string name = connectionString.Name;
 
-                string sessionFactoryKey = name + "-sessionFactory";
-                builder.Register(x => Initialize(name)).Named<ISessionFactory>(sessionFactoryKey).SingleInstance();
+                builder.Register(x => Initialize(name)).Named<ISessionFactory>(string.Format(SESSION_FACTORY_KEY, name)).SingleInstance();
             }
 
             builder.RegisterType<SessionFactorySelector>().As<ISessionFactorySelector>();
 
-            builder.RegisterAssemblyTypes(this.GetType().Assembly)
-                   .Where(IsQueryHandler)
-                   .As(typeof(IQueryHandler<>))
-                   .SingleInstance();
+            foreach (var queryHandler in GetQueryHandlers())
+            {
+                builder.RegisterGeneric(queryHandler)
+                       .As(typeof (IQueryHandler<>))
+                       .SingleInstance();
+            }
 
             builder.RegisterGeneric(typeof(NHibernateRepository<>))
                    .As(typeof(IRepository<>))

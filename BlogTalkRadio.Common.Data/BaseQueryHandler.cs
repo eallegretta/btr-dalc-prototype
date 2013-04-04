@@ -12,7 +12,8 @@ namespace BlogTalkRadio.Common.Data
 
             if (dataSource == null)
             {
-                dataSource = DataSourceMapper.GetDefaultReadingDataSourceForType<T>() ?? DataSourceMapper.GetDefaultWritingDataSourceForType<T>();
+                dataSource = DataSourceMapper.GetDefaultReadingDataSourceForQuery(query) ??
+                             DataSourceMapper.GetDefaultWritingDataSourceForQuery(query);
             }
 
             if (dataSource == null)

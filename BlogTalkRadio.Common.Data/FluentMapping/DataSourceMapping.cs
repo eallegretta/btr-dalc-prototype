@@ -7,10 +7,10 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
 {
     public class DataSourceMapping : IEquatable<DataSourceMapping>
     {
-        private Guid _mappingId = Guid.NewGuid();
+        private readonly Guid _mappingId = Guid.NewGuid();
 
-        private IList<Type> _mappedTypes = new List<Type>();
-        internal static IDictionary<Type, DataSourceMapping> AllMappings = new Dictionary<Type, DataSourceMapping>();
+        private readonly IList<Type> _mappedTypes = new List<Type>();
+        internal static IDictionary<Type, IList<DataSourceMapping>> AllMappings = new Dictionary<Type, IList<DataSourceMapping>>();
 
 
         internal DataSource DefaultReadingDataSource { get; private set; }
@@ -58,6 +58,16 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
             return this;
         }
 
+        public DataSourceMapping ToTypes(params Type[] types)
+        {
+            foreach (var type in types)
+            {
+                ToType(type);
+            }
+
+            return this;
+        }
+
         public DataSourceMapping ToType(Type type)
         {
             if (type == null)
@@ -68,12 +78,28 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
             _mappedTypes.Add(type);
 
 
-            if (AllMappings.ContainsKey(type))
+            if (!AllMappings.ContainsKey(type))
             {
-                throw new Exception("The type has already been mapped");
+                AllMappings.Add(type, new List<DataSourceMapping>());
             }
 
-            AllMappings.Add(type, this);
+            var mappings = AllMappings[type];
+
+            if (!mappings.Contains(this))
+            {
+                mappings.Add(this);
+            }
+
+            return this;
+        }
+
+
+        public DataSourceMapping ToQueries(params Type[] queryTypes)
+        {
+            foreach (var type in queryTypes)
+            {
+                ToQuery(type);
+            }
 
             return this;
         }
@@ -126,6 +152,31 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
             foreach (var type in types)
             {
                 ToType(type);
+            }
+
+            return this;
+        }
+
+        public DataSourceMapping Exclude<T>()
+        {
+            return Exclude(typeof (T));
+        }
+
+        public DataSourceMapping ExcludeQuery(Type queryType)
+        {
+            return Exclude(queryType);
+        }
+
+        public DataSourceMapping Exclude(Type type)
+        {
+            if (_mappedTypes.Contains(type))
+            {
+                _mappedTypes.Remove(type);
+            }
+
+            if (AllMappings.ContainsKey(type) && AllMappings[type].Contains(this))
+            {
+                AllMappings[type].Remove(this);
             }
 
             return this;

@@ -27,6 +27,13 @@ namespace Web.Controllers
 
         public ActionResult Index(int page = 1, string category = null)
         {
+            var customPagination = GetCategoryTopics(page, category);
+
+            return View(new HomeIndexViewModel(_categoryRepo.Query(new AllCategoriesQuery()), customPagination));
+        }
+
+        private CustomPagination<CategoryTopicEntity> GetCategoryTopics(int page, string category)
+        {
             int take = 15;
             int skip = (page - 1) * take;
 
@@ -42,8 +49,14 @@ namespace Web.Controllers
             }
 
             var customPagination = new CustomPagination<CategoryTopicEntity>(topics, page, take, topics.TotalItems);
+            return customPagination;
+        }
 
-            return View(new HomeIndexViewModel(_categoryRepo.Query(new AllCategoriesQuery()), customPagination));
+        public ActionResult List(int page = 1, string category = null)
+        {
+            var customPagination = GetCategoryTopics(page, category);
+
+            return PartialView(customPagination);
         }
 
         public ActionResult Edit(int id)

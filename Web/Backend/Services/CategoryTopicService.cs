@@ -1,8 +1,10 @@
-﻿using BlogTalkRadio.Common.Data;
+﻿using System.Collections.Generic;
+using BlogTalkRadio.Common.Data;
 using BlogTalkRadio.Common.Data.Queries;
 using Cinchcast.Framework.Collections;
 using Web.Backend.Data;
 using Web.Backend.Data.Queries;
+using Web.Backend.Data.Queries.Category;
 using Web.Backend.Data.Queries.CategoryTopics;
 using Web.Backend.DomainModel;
 using System.Linq;
@@ -15,10 +17,12 @@ namespace Web.Backend.Services
     public class CategoryTopicService : ICategoryTopicService
     {
         private readonly IRepository<CategoryTopicEntity> _categoryTopicRepository;
+        private readonly IRepository<GenreEntity> _genreEntityRepo;
 
-        public CategoryTopicService(IRepository<CategoryTopicEntity> categoryTopicRepository)
+        public CategoryTopicService(IRepository<CategoryTopicEntity> categoryTopicRepository, IRepository<GenreEntity> genreEntityRepo)
         {
             _categoryTopicRepository = categoryTopicRepository;
+            _genreEntityRepo = genreEntityRepo;
         }
 
         public CategoryTopicEntity Get(int id)

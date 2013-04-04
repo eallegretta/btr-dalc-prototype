@@ -1,7 +1,4 @@
-﻿
-@using MvcContrib.UI.Grid
-@using MvcContrib.UI.Pager
-@model HomeIndexViewModel
+﻿@model HomeIndexViewModel
 
 <h2>title</h2>
 
@@ -12,11 +9,15 @@
     }
 </select>
 
-@Html.Grid(Model.CategoryTopics).Columns(c =>
-    {
-        c.For(x => x.Id).Format("<a href=\"/home/edit/{0}\">Edit</a>").Encode(false);
-        c.For(x => x.Name).Named("Name");
-        c.For(x => x.Category.GenreDescription).Named("Category");
-    })
+<div id="list">
+    @Html.Partial("List", Model.CategoryTopics)
+</div>
 
-@Html.Raw(Html.Pager(Model.CategoryTopics))
+@section Scripts
+{
+    <script type="text/javascript">
+        $("#category").change(function () {
+            location.href = '@Url.Action("Index", new { page = 1 })&category=' + this.value;
+        });
+    </script>
+}

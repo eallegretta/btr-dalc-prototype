@@ -1,6 +1,8 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using Autofac.Core;
 using BlogTalkRadio.Common.Data.DataSources;
+using BlogTalkRadio.Common.Data.NHibernate.DependencyInjection;
 using Cinchcast.Framework.DependencyInjection.Autofac;
 using NHibernate;
 namespace BlogTalkRadio.Common.Data.NHibernate
@@ -20,7 +22,12 @@ namespace BlogTalkRadio.Common.Data.NHibernate
         {
             var sqlDataSource = dataSource as SqlDataSource;
 
-            return Ioc.Instance.Container.ResolveNamed<ISessionFactory>(sqlDataSource.ConnectionString.Name);
+            if (sqlDataSource == null)
+            {
+                throw new Exception("Only SqlDataSource is supported");
+            }
+
+            return Ioc.Instance.Container.ResolveNamed<ISessionFactory>(string.Format(NHibernateModule.SESSION_FACTORY_KEY, sqlDataSource.ConnectionString.Name));
         }
     }
 }

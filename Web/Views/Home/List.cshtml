@@ -1,0 +1,13 @@
+﻿
+@using MvcContrib.UI.Grid
+@using MvcContrib.UI.Pager
+@model IPagination<CategoryTopicEntity>
+
+@Html.Grid(Model).Columns(c =>
+    {
+        c.For(x => x.Id).Format("<a href=\"/home/edit/{0}\">Edit</a>").Encode(false);
+        c.For(x => x.Name).Named("Name");
+        c.For(x => x.Category.GenreDescription).Named("Category");
+    })
+
+@Html.Raw(Html.Pager(Model))

@@ -22,7 +22,9 @@ namespace BlogTalkRadio.Common.Data.NHibernate.QueryHandlers
 
         public override int Count(IQuery<T> query = null)
         {
-            return ApplyQuery(query).Count();
+            var queryable = ApplyQuery(query);
+            
+            return queryable.Skip(0).Take(1).Count();
         }
 
         public override List<T> Query(IQuery<T> query)

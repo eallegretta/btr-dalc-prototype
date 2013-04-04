@@ -25,7 +25,7 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
 
         public static DataSource[] GetDataSourcesForType(Type type)
         {
-            return GetMappingForType(type).DataSources;
+            return GetMappingsForType(type).SelectMany(x => x.DataSources).ToArray();
         }
 
         public static DataSource[] GetDataSourcesForQuery<T>(IQuery<T> query) where T : class, new()
@@ -50,7 +50,12 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
 
         public static DataSource GetDefaultWritingDataSourceForType(Type type)
         {
-            var mapping = GetMappingForType(type);
+            var mapping = GetMappingsForType(type).FirstOrDefault();
+
+            if (mapping == null)
+            {
+                return null;
+            }
 
             return mapping.DefaultWritingDataSource ?? mapping.DataSources.First();
         }
@@ -71,7 +76,12 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
 
         public static DataSource GetDefaultReadingDataSourceForType(Type type)
         {
-            var mapping = GetMappingForType(type);
+            var mapping = GetMappingsForType(type).FirstOrDefault();
+
+            if (mapping == null)
+            {
+                return null;
+            }
 
             return mapping.DefaultReadingDataSource ?? mapping.DataSources.First();
         }
@@ -85,13 +95,13 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
             }
         }
 
-        private static DataSourceMapping GetMappingForType(Type type)
+        private static IList<DataSourceMapping> GetMappingsForType(Type type)
         {
             bool containsMappings = DataSourceMapping.AllMappings.ContainsKey(type);
 
             if (containsMappings == false)
             {
-                throw new Exception("There are no mappings for the specified type");
+                return new List<DataSourceMapping>();
             }
 
             return DataSourceMapping.AllMappings[type];
