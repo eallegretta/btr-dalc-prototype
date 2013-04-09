@@ -35,6 +35,49 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
         }
         #endregion
 
+        #region GetDefaultDataSourceFor
+
+        public static DataSource GetDefaultDataSourceForType(Type type, bool forReading = true)
+        {
+            var dataSource = forReading
+                             ? GetDefaultReadingDataSourceForType(type)
+                             : GetDefaultWritingDataSourceForType(type);
+
+            if (dataSource == null)
+            {
+                dataSource = GetDataSourcesForType(type).First();
+            }
+
+            return dataSource;
+        }
+
+        public static DataSource GetDefaultDataSourceForType<T>(bool forReading = true)
+        {
+            return GetDefaultDataSourceForType(typeof(T), forReading);
+        }
+
+        public static DataSource GetDefaultDataSourceForQuery<T>(IQuery<T> query) where T: class, new()
+        {
+            VerifyQueryIsNotNull(query);
+
+            var dataSource = query.DataSource;
+
+            if (dataSource == null)
+            {
+                dataSource = GetDefaultReadingDataSourceForQuery(query) ??
+                             GetDefaultWritingDataSourceForQuery(query);
+            }
+
+            if (dataSource == null)
+            {
+                dataSource = GetDataSourcesForType<T>().First();
+            }
+
+            return dataSource;
+        }
+
+        #endregion
+
         #region GetDefaultWritingDataSourcesFor
         public static DataSource GetDefaultWritingDataSourceForQuery<T>(IQuery<T> query) where T: class, new()
         {

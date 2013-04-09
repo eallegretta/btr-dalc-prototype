@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using Autofac;
+using BlogTalkRadio.Common.Data.DependencyInjection;
 using BlogTalkRadio.Common.Data.NHibernate.QueryHandlers;
 using Cinchcast.Framework.DependencyInjection.Autofac;
 using FluentNHibernate;
@@ -20,14 +21,6 @@ namespace BlogTalkRadio.Common.Data.NHibernate.DependencyInjection
         private static Func<string, Type, bool> _mappingTypesForDatabaseEvaluator;
 
         public const string SESSION_FACTORY_KEY = "{0}-sessionFactory";
-
-        private static IEnumerable<Type> GetQueryHandlers()
-        {
-            return from t in typeof (NHibernateModule).Assembly.GetTypes()
-                   from i in t.GetInterfaces()
-                   where i.IsGenericType && i.GetGenericTypeDefinition() == typeof (IQueryHandler<>)
-                   select t;
-        }
 
         private static Type[] GetMappingTypes()
         {
@@ -51,16 +44,7 @@ namespace BlogTalkRadio.Common.Data.NHibernate.DependencyInjection
 
             builder.RegisterType<SessionFactorySelector>().As<ISessionFactorySelector>();
 
-            foreach (var queryHandler in GetQueryHandlers())
-            {
-                builder.RegisterGeneric(queryHandler)
-                       .As(typeof (IQueryHandler<>))
-                       .SingleInstance();
-            }
-
-            builder.RegisterGeneric(typeof(NHibernateRepository<>))
-                   .As(typeof(IRepository<>))
-                   .SingleInstance();
+            RepositoryModule.RegisterRepository(builder, typeof(NHibernateRepository<>));
 
             builder.RegisterType<NHibernateUnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<NHibernateQueryableEagerLoadProvider>().As<IQueryableEagerLoadProvider>();

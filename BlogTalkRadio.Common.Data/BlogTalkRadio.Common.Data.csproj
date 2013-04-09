@@ -63,9 +63,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseQueryHandler.cs" />
     <Compile Include="DataSources\SqlDataSource.cs" />
     <Compile Include="DependencyInjection\ContainerExtensions.cs" />
+    <Compile Include="DependencyInjection\RepositoryModule.cs" />
+    <Compile Include="Linq\CinchcastQueryable.cs" />
+    <Compile Include="Linq\CinchcastQueryProvider.cs" />
+    <Compile Include="Linq\TypeSystem.cs" />
     <Compile Include="PropertyExpression.cs" />
     <Compile Include="Queries\LinqAdHocQuery.cs" />
     <Compile Include="Queries\LinqAdHocSortedQuery.cs" />

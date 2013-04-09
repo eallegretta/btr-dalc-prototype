@@ -3,10 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using BlogTalkRadio.Common.Data;
+using BlogTalkRadio.Common.Data.Dapper;
 using BlogTalkRadio.Common.Data.DataSources;
 using BlogTalkRadio.Common.Data.FluentMapping;
+using BlogTalkRadio.Common.Data.NHibernate;
+using BlogTalkRadio.Common.Data.Orm.EntityFramework;
 using Web.Backend.Data.Queries.Category;
 using Web.Backend.DomainModel.Entities;
+using Web.Backend.DomainModel.Entities.OrmVersus;
 
 namespace Web.Backend.Data
 {
@@ -23,7 +27,25 @@ namespace Web.Backend.Data
             DataSourceMapper.Map(Query, Btr)
                 .ToNamespace<GenreEntity>()
                 .DefaultForReading(Query)
-                .DefaultForWriting(Btr);
+                .DefaultForWriting(Btr)
+                .UsingRepository(typeof(NHibernateRepository<>));
+
+
+            DataSourceMapper.Map(Query)
+                            .ToType<GenreEntityDapper>()
+                            .Default(Query)
+                            .UsingRepository(typeof (DapperRepository<>));
+
+            DataSourceMapper.Map(Query)
+                            .ToType<GenreEntityNHibernate>()
+                            .Default(Query)
+                            .UsingRepository(typeof(NHibernateRepository<>));
+
+            DataSourceMapper.Map(Query)
+                            .ToType<GenreEntityEntityFramework>()
+                            .Default(Query)
+                            .UsingRepository(typeof(EntityFrameworkRepository<>));
+
         }
     }
 }

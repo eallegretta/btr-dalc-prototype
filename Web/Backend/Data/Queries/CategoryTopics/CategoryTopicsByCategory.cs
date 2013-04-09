@@ -21,30 +21,4 @@ namespace Web.Backend.Data.Queries.CategoryTopics
             return base.Apply(queryable.OrderBy(x => x.Description));
         }
     }
-
-    public class CategoryTopicsByCategoryInAComplexMannerThatIJustCreated : StoredProcedureQuery<CategoryTopicEntity>
-    {
-        private readonly string _category;
-
-        public CategoryTopicsByCategoryInAComplexMannerThatIJustCreated(string category)
-        {
-            _category = category;
-        }
-
-        public override string StoredProcedure
-        {
-            get { return "p_CategoryTopics_Sel"; }
-        }
-
-        public override IDictionary<string, object> Parameters
-        {
-            get
-            {
-                return new Dictionary<string, object>
-                    {
-                        { "GenreURL", _category }
-                    };
-            }
-        }
-    }
 }

@@ -1,7 +1,7 @@
 ﻿using FluentNHibernate.Mapping;
 using Web.Backend.DomainModel.Entities;
 
-namespace BlogTalkRadio.Common.Data.NHibernate.Mappings
+namespace Web.Backend.Data.Orm.NHibernate.Mappings
 {
     public class GenreMappings: ClassMap<GenreEntity>
     {

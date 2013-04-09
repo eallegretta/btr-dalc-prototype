@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using BlogTalkRadio.Common.Data.FluentMapping;
 using BlogTalkRadio.Common.Data.Queries;
 using NHibernate;
 using NHibernate.Linq;
 
 namespace BlogTalkRadio.Common.Data.NHibernate.QueryHandlers
 {
-    public class NHibernateLinqQueryHandler<T> : BaseQueryHandler<T> where T : class, new()
+    public class NHibernateLinqQueryHandler<T> : IQueryHandler<T> where T : class, new()
     {
         private readonly ISessionFactorySelector _sessionFactorySelector;
 
@@ -15,31 +16,31 @@ namespace BlogTalkRadio.Common.Data.NHibernate.QueryHandlers
             _sessionFactorySelector = sessionFactorySelector;
         }
 
-        public override bool CanHandle(IQuery<T> query)
+        public bool CanHandle(IQuery<T> query)
         {
             return query is LinqQuery<T>;
         }
 
-        public override int Count(IQuery<T> query = null)
+        public int Count(IQuery<T> query = null)
         {
             var queryable = ApplyQuery(query);
-            
+
             return queryable.Skip(0).Take(1).Count();
         }
 
-        public override List<T> Query(IQuery<T> query)
+        public List<T> Query(IQuery<T> query)
         {
             return ApplyQuery(query).ToList();
         }
 
-        public override T Get(IQuery<T> query)
+        public T Get(IQuery<T> query)
         {
             return ApplyQuery(query).FirstOrDefault();
         }
 
         private IQueryable<T> ApplyQuery(IQuery<T> query)
         {
-            var session = _sessionFactorySelector.GetSessionFactoryFor(GetDataSourceForQuery(query)).GetCurrentSession();
+            var session = _sessionFactorySelector.GetSessionFactoryFor(DataSourceMapper.GetDefaultDataSourceForQuery(query)).GetCurrentSession();
 
             var linqQuery = query as LinqQuery<T>;
 

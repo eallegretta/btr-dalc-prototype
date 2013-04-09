@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using Autofac;
 using BlogTalkRadio.Common.Data;
+using BlogTalkRadio.Common.Data.DependencyInjection;
 using BlogTalkRadio.Common.Data.EntityFramework;
 using BlogTalkRadio.Common.Data.Orm.EntityFramework;
 using BlogTalkRadio.Common.Data.Orm.EntityFramework.QueryHandlers;
@@ -10,12 +13,7 @@ namespace Web.Backend.DependencyInjection.EntityFramework
 {
     public class EntityFrameworkModule : Module
     {
-        private bool IsQueryHandler(Type type)
-        {
-            string @namespace = typeof(EntityFrameworkLinqQueryHandler<>).Namespace;
-
-            return type.Namespace == @namespace;
-        }
+        public const string DBCONTEXT_FACTORY_KEY = "{0}-ef-dbContextFactory";
 
         protected override void Load(ContainerBuilder builder)
         {
@@ -24,20 +22,13 @@ namespace Web.Backend.DependencyInjection.EntityFramework
                 var connectionString = ConfigurationManager.ConnectionStrings[index];
                 string name = connectionString.Name;
 
-                string dbContextFactoryKey = name + "-ef-dbContextFactory";
+                string dbContextFactoryKey = string.Format(DBCONTEXT_FACTORY_KEY, name);
                 builder.RegisterInstance(new DbContextFactory { ConnectionStringName = name }).Named<IDbContextFactory>(dbContextFactoryKey).SingleInstance();
             }
 
             builder.RegisterType<DbContextFactorySelector>().As<IDbContextFactorySelector>();
 
-            builder.RegisterAssemblyTypes(this.GetType().Assembly)
-                   .Where(IsQueryHandler)
-                   .As(typeof(IQueryHandler<>))
-                   .SingleInstance();
-
-            builder.RegisterGeneric(typeof(EntityFrameworkRepository<>))
-                   .As(typeof(IRepository<>))
-                   .SingleInstance();
+            RepositoryModule.RegisterRepository(builder, typeof(EntityFrameworkRepository<>));
 
             builder.RegisterType<EntityFrameworkUnitOfWork>().As<IUnitOfWork>();
             builder.RegisterType<EntityFrameworkQueraybleEagerLoadProvider>().As<IQueryableEagerLoadProvider>();

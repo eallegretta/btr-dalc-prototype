@@ -4,14 +4,14 @@ using BlogTalkRadio.Common.Data;
 using BlogTalkRadio.Common.Data.DataSources;
 using BlogTalkRadio.Common.Data.FluentMapping;
 using BlogTalkRadio.Common.Data.NHibernate.DependencyInjection;
-using BlogTalkRadio.Common.Data.NHibernate.Mappings;
 using FluentNHibernate;
 using FluentNHibernate.Mapping;
+using Web.Backend.Data.Orm.NHibernate.Mappings;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(Web.App_Start.NHibernateProfilerBootstrapper), "PreStart")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Web.App_Start.NHibernateStart), "PreStart", Order = 6)]
 namespace Web.App_Start
 {
-	public static class NHibernateProfilerBootstrapper
+	public static class NHibernateStart
 	{
 		public static void PreStart()
 		{

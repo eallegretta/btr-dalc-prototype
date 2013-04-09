@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SQLinq</id>
+    <version>2.0</version>
+    <title>SQLinq</title>
+    <authors>Chris Pietschmann</authors>
+    <owners>Chris Pietschmann</owners>
+    <licenseUrl>http://sqlinq.codeplex.com/license</licenseUrl>
+    <projectUrl>http://sqlinq.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Easily generate ad-hoc SQL code using LINQ in a strongly typed manner that allows for compile time validation of you sql scripts.</description>
+    <releaseNotes>http://sqlinq.codeplex.com/releases</releaseNotes>
+    <copyright>Copyright (c) 2012 Chris Pietschmann</copyright>
+    <tags>sql dal adhoc generation linq database</tags>
+    <references>
+      <reference file="SQLinq.dll" />
+    </references>
+  </metadata>
+</package>

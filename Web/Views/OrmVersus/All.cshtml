@@ -1,0 +1,12 @@
+﻿
+@using MvcContrib.UI.Grid
+@model IEnumerable<GenreEntity>
+
+@Html.Grid(Model).Columns(c =>
+    {
+        c.For(x => x.GenreId).Named("Id");
+        c.For(x => x.GenreDescription).Named("Description");
+        c.For(x => x.GenreUrl).Named("Url");
+    })
+
+Elaspsed: @ViewBag.Timer.Elapsed 

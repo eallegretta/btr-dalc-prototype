@@ -17,14 +17,7 @@ namespace BlogTalkRadio.Common.Data.NHibernate
 
         private ISession Session(bool forReading = true)
         {
-            var dataSource = forReading
-                             ? DataSourceMapper.GetDefaultReadingDataSourceForType<T>()
-                             : DataSourceMapper.GetDefaultWritingDataSourceForType<T>();
-
-            if (dataSource == null)
-            {
-                dataSource = DataSourceMapper.GetDataSourcesForType<T>().First();
-            }
+            var dataSource = DataSourceMapper.GetDefaultDataSourceForType<T>(forReading);
         
             return _sessionFactorySelector.GetSessionFactoryFor(dataSource).GetCurrentSession();
         }

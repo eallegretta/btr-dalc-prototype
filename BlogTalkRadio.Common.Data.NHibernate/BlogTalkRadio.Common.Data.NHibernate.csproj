@@ -107,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DependencyInjection\NHibernateModule.cs" />
+    <Compile Include="Queries\NHibernateQuery.cs" />
+    <Compile Include="QueryHandlers\NHibernateQueryHandler.cs" />
     <Compile Include="SessionFactorySelector.cs" />
     <Compile Include="LazySessionContext.cs" />
     <Compile Include="NHibernateQueryableEagerLoadProvider.cs" />

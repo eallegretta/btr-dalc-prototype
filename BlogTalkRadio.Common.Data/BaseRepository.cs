@@ -11,6 +11,11 @@ namespace BlogTalkRadio.Common.Data
 
         public BaseRepository(IEnumerable<IQueryHandler<T>> queryHandlers)
         {
+            if (queryHandlers == null || !queryHandlers.Any())
+            {
+                throw new ArgumentException("There are not query handlers defined for the repository of type " + GetType());
+            }
+
             _queryHandlers = queryHandlers;
         }
 

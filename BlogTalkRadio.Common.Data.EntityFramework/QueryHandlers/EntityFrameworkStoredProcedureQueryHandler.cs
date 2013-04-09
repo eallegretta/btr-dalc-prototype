@@ -4,11 +4,12 @@ using System.Data.Common;
 using System.Data.Entity;
 using System.Linq;
 using BlogTalkRadio.Common.Data.EntityFramework;
+using BlogTalkRadio.Common.Data.FluentMapping;
 using BlogTalkRadio.Common.Data.Queries;
 
 namespace BlogTalkRadio.Common.Data.Orm.EntityFramework.QueryHandlers
 {
-    public class EntityFrameworkStoredProcedureQueryHandler<T> : BaseQueryHandler<T> where T: class, new()
+    public class EntityFrameworkStoredProcedureQueryHandler<T> : IQueryHandler<T> where T : class, new()
     {
         private readonly IDbContextFactorySelector _dbContextFactorySelector;
 
@@ -17,43 +18,48 @@ namespace BlogTalkRadio.Common.Data.Orm.EntityFramework.QueryHandlers
             _dbContextFactorySelector = dbContextFactorySelector;
         }
 
-        public override bool CanHandle(IQuery<T> query)
+        public bool CanHandle(IQuery<T> query)
         {
             return query is StoredProcedureQuery<T>;
         }
 
-        public override int Count(IQuery<T> query = null)
+        public int Count(IQuery<T> query = null)
         {
             return (int)ExecuteSpQuery(false, query as StoredProcedureQuery<T>);
         }
 
-        public override T Get(IQuery<T> query)
+        public T Get(IQuery<T> query)
         {
             return ((List<T>)ExecuteSpQuery(false, query as StoredProcedureQuery<T>)).FirstOrDefault();
         }
 
-        public override List<T> Query(IQuery<T> query)
+        public List<T> Query(IQuery<T> query)
         {
             return (List<T>)ExecuteSpQuery(false, query as StoredProcedureQuery<T>);
         }
 
         private object ExecuteSpQuery(bool count, StoredProcedureQuery<T> spQuery)
         {
-            var parameters = new DbParameter[spQuery.Parameters.Count];
+            int parametersCount = spQuery.Parameters != null ? spQuery.Parameters.Count : 0;
 
-            var dbContext = _dbContextFactorySelector.GetDbContextFactoryFor(GetDataSourceForQuery(spQuery)).GetCurrentDbContext();
+            var parameters = new DbParameter[parametersCount];
+
+            var dbContext = _dbContextFactorySelector.GetDbContextFactoryFor(DataSourceMapper.GetDefaultDataSourceForQuery(spQuery)).GetCurrentDbContext();
 
             using (var cmd = dbContext.Database.Connection.CreateCommand())
             {
                 int index = 0;
-                foreach (var spParam in spQuery.Parameters)
+                if (parametersCount > 0)
                 {
-                    var parameter = cmd.CreateParameter();
+                    foreach (var spParam in spQuery.Parameters)
+                    {
+                        var parameter = cmd.CreateParameter();
 
-                    parameter.ParameterName = spParam.Key;
-                    parameter.Value = spParam.Value;
+                        parameter.ParameterName = spParam.Key;
+                        parameter.Value = spParam.Value;
 
-                    parameters[index++] = parameter;
+                        parameters[index++] = parameter;
+                    }
                 }
             }
 

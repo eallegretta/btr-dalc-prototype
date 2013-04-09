@@ -1,11 +1,8 @@
 ﻿using BlogTalkRadio.Common.Data.Web;
-using Cinchcast.Framework.Configuration;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using Web.App_Start;
-using Web.Backend;
-using WebActivator;
 
-[assembly: PreApplicationStartMethod(typeof(HttpModules), "Start")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(HttpModules), "Start", Order = 5)]
 namespace Web.App_Start
 {
     public static class HttpModules

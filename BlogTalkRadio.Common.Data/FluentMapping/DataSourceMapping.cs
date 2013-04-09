@@ -22,6 +22,7 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
         }
 
         internal DataSource[] DataSources { get; private set; }
+        internal Type RepositoryType { get; private set; }
 
         public DataSourceMapping Default(DataSource dataSource)
         {
@@ -179,6 +180,12 @@ namespace BlogTalkRadio.Common.Data.FluentMapping
                 AllMappings[type].Remove(this);
             }
 
+            return this;
+        }
+
+        public DataSourceMapping UsingRepository(Type repositoryType)
+        {
+            RepositoryType = repositoryType;
             return this;
         }
 

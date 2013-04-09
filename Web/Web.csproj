@@ -62,6 +62,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Cinchcast.Framework.DependencyInjection.Autofac.1.1.0.13316\lib\net40\Cinchcast.Framework.DependencyInjection.Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DapperExtensions">
+      <HintPath>..\packages\DapperExtensions.1.4.1\lib\net40\DapperExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
@@ -103,6 +109,7 @@
       <HintPath>..\packages\Seterlund.CodeGuard.2.2.4\lib\net40\Seterlund.CodeGuard.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -143,8 +150,8 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="WebActivator">
-      <HintPath>..\packages\WebActivator.1.4.4\lib\net40\WebActivator.dll</HintPath>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.1\lib\net40\WebActivatorEx.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -213,7 +220,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tooltip.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\crud\crud-view-model.js" />
-    <Content Include="App_Start\EntityFrameworkProfilerBootstrapper.cs" />
+    <Compile Include="App_Start\DapperStart.cs" />
+    <Compile Include="App_Start\EntityFrameworkStart.cs" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
@@ -264,6 +272,7 @@
     <Content Include="Views\Category\Delete.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Home\List.cshtml" />
+    <Content Include="Views\OrmVersus\All.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\DataMappingsStart.cs" />
@@ -271,13 +280,28 @@
     <Compile Include="App_Start\HttpModules.cs" />
     <Compile Include="App_Start\ModelMappings.cs" />
     <Compile Include="Backend\Data\DataSources.cs" />
+    <Compile Include="Backend\Data\Orm\Dapper\Mappings\CategoryTopicMappings.cs" />
+    <Compile Include="Backend\Data\Orm\Dapper\Mappings\GenreVersusMappings.cs" />
+    <Compile Include="Backend\Data\Orm\Dapper\Mappings\GenreMappings.cs" />
     <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\CategoryTopicMappings.cs" />
+    <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\GenreVersusMappings.cs" />
     <Compile Include="Backend\Data\Orm\EntityFramework\Mappings\GenreMappings.cs" />
     <Compile Include="Backend\Data\Orm\NHibernate\Mappings\CategoryTopicMappings.cs" />
+    <Compile Include="Backend\Data\Orm\NHibernate\Mappings\GenreVersusMappings.cs" />
     <Compile Include="Backend\Data\Orm\NHibernate\Mappings\GenreMappings.cs" />
     <Compile Include="Backend\Data\Queries\Category\AllCategoriesQuery.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\Dapper\AllGenresNative.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\EntityFramework\AllGenresLinq.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\NHibernate\AllGenresLinq.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\Dapper\AllGenresSp.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\EntityFramework\AllGenresSp.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\NHibernate\AllGenresNative.cs" />
+    <Compile Include="Backend\Data\Queries\OrmVersus\NHibernate\AllGenresSp.cs" />
     <Compile Include="Backend\DependencyInjection\AutoMapperModule.cs" />
     <Compile Include="Backend\DomainModel\Contracts\Services\ICategoryTopicService.cs" />
+    <Compile Include="Backend\DomainModel\Entities\OrmVersus\GenreEntityDapper.cs" />
+    <Compile Include="Backend\DomainModel\Entities\OrmVersus\GenreEntityEntityFramework.cs" />
+    <Compile Include="Backend\DomainModel\Entities\OrmVersus\GenreEntityNHibernate.cs" />
     <Compile Include="Backend\Services\Commands\Category\CreateCategoryCommand.cs" />
     <Compile Include="Backend\Services\Commands\Category\DeleteCategoryCommand.cs" />
     <Compile Include="Backend\Services\Commands\Category\UpdateCategoryCommand.cs" />
@@ -291,6 +315,7 @@
     <Compile Include="Backend\DomainModel\Entities\CategoryTopicEntity.cs" />
     <Compile Include="Backend\DomainModel\Entities\GenreEntity.cs" />
     <Compile Include="Backend\Data\Queries\CategoryTopics\CategoryTopicsByCategory.cs" />
+    <Compile Include="Controllers\OrmVersusController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -301,7 +326,7 @@
     <Compile Include="Mvc\ModelStateDictionaryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Backend\Services\CategoryTopicService.cs" />
-    <Compile Include="App_Start\NHibernateProfilerBootstrapper.cs" />
+    <Compile Include="App_Start\NHibernateStart.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -316,10 +341,12 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\BlogTalkRadio.Common.Data.Dapper\BlogTalkRadio.Common.Data.Dapper.csproj">
+      <Project>{9f539e03-5c05-49cf-9c80-e6021eb9783b}</Project>
+      <Name>BlogTalkRadio.Common.Data.Dapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BlogTalkRadio.Common.Data.EntityFramework\BlogTalkRadio.Common.Data.EntityFramework.csproj">
       <Project>{c6118bf8-4748-4c11-904e-54214ff69398}</Project>
       <Name>BlogTalkRadio.Common.Data.EntityFramework</Name>

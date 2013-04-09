@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>SQLinq.Dapper</id>
+    <version>1.2</version>
+    <title>SQLinq.Dapper</title>
+    <authors>Chris Pietschmann</authors>
+    <owners>Chris Pietschmann</owners>
+    <licenseUrl>http://sqlinq.codeplex.com/license</licenseUrl>
+    <projectUrl>http://sqlinq.codeplex.com/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Allows for SQLinq to be more easily used with a little help from "Dapper dot net".</description>
+    <releaseNotes>http://sqlinq.codeplex.com/releases</releaseNotes>
+    <copyright>Copyright (c) 2012 Chris Pietschmann</copyright>
+    <language />
+    <tags>sql dal adhoc generation linq dapper orm database</tags>
+    <dependencies>
+      <dependency id="SQLinq" version="2.0.0" />
+      <dependency id="Dapper" version="1.8" />
+    </dependencies>
+    <references>
+      <reference file="SQLinq.Dapper.dll" />
+    </references>
+  </metadata>
+</package>
