@@ -16,8 +16,6 @@ namespace BlogTalkRadio.Common.Data.Dapper.Linq
 
         public override object Execute(Expression expression)
         {
-            var methodExpression = expression as MethodCallExpression;
-
             ApplyExpression(expression);
 
             return null;
